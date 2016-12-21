@@ -19,7 +19,6 @@
       "default_title": "Click for more details."
    },
    "permissions": [ "tabs", "webRequest", "webRequestBlocking", "storage", "\u003Call_urls>", "contextMenus" ],
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.5",
+   "version": "0.5.1",
    "web_accessible_resources": [ "detector.js" ]
 }

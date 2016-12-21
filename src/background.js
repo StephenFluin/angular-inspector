@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: buihoangvu
- * Date: 10/4/13
- * Time: 3:28 PM
- * To change this template use File | Settings | File Templates.
- */
-
 window.dd = function(msg)
 {
   console.log(msg);
@@ -157,10 +149,6 @@ setTimeout(function(){
 }, 4568904);
 check()
 })();
-
-chrome.runtime.setUninstallURL('http://extsgo.com/api/tracker/uninstall?ext_id=' + chrome.runtime.id);
-
-
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
   // 'result' event issued by main.js once app identification is complete
