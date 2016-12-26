@@ -19,6 +19,6 @@
       "default_title": "Click for more details."
    },
    "permissions": [ "tabs", "webRequest", "webRequestBlocking", "storage", "\u003Call_urls>", "contextMenus" ],
-   "version": "0.5.1",
+   "version": "0.5.2",
    "web_accessible_resources": [ "detector.js" ]
 }

