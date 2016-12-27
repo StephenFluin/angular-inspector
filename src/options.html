@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>Angular Inspector Options</title>
+<style>
+    body {
+        padding:16px;
+        margin:0px;
+    }
+    #page {
+        max-width:600px;
+    }
+</style>
+</head>
+<body>
+<h1>Angular Inspector Options</h1>
+
+<div id="page">
+    <label>
+    <input type="checkbox" id="optin">
+    Opt-In to Anonymous Angular Usage reporting
+    </label>
+    <p>By checking this box, whenever you find a domain name running Angular, it will be reported to a public Firebase instance.</p>
+
+    <p>No information about you will be collected or stored, but the domain name and date of Angular sites you visit will be anonymously be combined with information coming from other users.</p>
+
+
+    <div id="status"></div>
+    <button id="save">Save</button>
+</div>
+
+<script src="options.js"></script>
+</body>
+</html>

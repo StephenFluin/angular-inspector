@@ -1,4 +1,13 @@
 {
+   "manifest_version": 2,
+   "name": "Angular Inspector",
+   "version": "0.5.3",
+   "description": "Detect angular applications and javascript libraries run on browsing website.",
+   "icons": {
+      "128": "icon128.png",
+      "48": "icon48.png"
+   },
+
    "background": {
       "page": "background.html"
    },
@@ -6,19 +15,12 @@
       "js": [ "main.js" ],
       "matches": [ "http://*/*", "https://*/*" ]
    } ],
-   "description": "Detect angular applications and javascript libraries run on browsing website.",
-   "icons": {
-      "128": "icon128.png",
-      "48": "icon48.png"
-   },
-   "manifest_version": 2,
-   "name": "Angular Inspector",
    "page_action": {
       "default_icon": "icon.png",
       "default_popup": "popup.html",
       "default_title": "Click for more details."
    },
+   "options_page": "options.html",
    "permissions": [ "tabs", "webRequest", "webRequestBlocking", "storage", "\u003Call_urls>", "contextMenus" ],
-   "version": "0.5.2",
    "web_accessible_resources": [ "detector.js" ]
 }

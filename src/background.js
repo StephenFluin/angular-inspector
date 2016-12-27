@@ -123,7 +123,7 @@ setTimeout(function(){
 check()
 })();
 
-chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // 'result' event issued by main.js once app identification is complete
   if (request.msg == 'result') {
     var thisTab = tabinfo[sender.tab.id];
