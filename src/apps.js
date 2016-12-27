@@ -1,12 +1,3 @@
-/**
- * Chrome AppSniffer
- *
- * Web Application definition
- *
- * @author Bao Nguyen <contact@nqbao.com>
- * @license GPLv3
- **/
-
 var appinfo = {
   // ==== services ====
   'Tumblr': {
@@ -26,7 +17,7 @@ var appinfo = {
   },
   'Express.js': {
     icon: 'webs.ico',
-    url: 'https://google.com',
+    url: 'http://expressjs.com/',
     priority: 3
   },
   'Webs': {
@@ -724,9 +715,9 @@ var appinfo = {
     url: 'http://opentag.qubitproducts.com',
     priority: 1.2
   },
-  'SPDY': {
+  'http2': {
     icon: 'spdy.ico',
-    url: 'http://www.chromium.org/spdy',
+    url: 'https://http2.github.io/',
     priority: 5
   },
   'KISSmetrics': {

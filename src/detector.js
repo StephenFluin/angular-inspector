@@ -1,13 +1,3 @@
-/**
- * Chrome AppSniffer
- *
- * Detect apps run on current page and send back to background page.
- * Some part of this script was refered from Wappalyzer Firefox Addon.
- *
- * @author Bao Nguyen <contact@nqbao.com>
- * @license GPLv3
- **/
-
 (function () {
   var _apps = {};
   var doc = document.documentElement;
@@ -312,8 +302,8 @@
     'etracker': function () {
       return window.et_params;
     },
-    'SPDY': function () {
-      return window.chrome.loadTimes().wasFetchedViaSpdy;
+    'http2': function () {
+      return window.chrome.loadTimes().npnNegotiatedProtocol == 'h2';
     },
     'LiveStreet': function () {
       return window.LIVESTREET_SECURITY_KEY;
@@ -414,6 +404,8 @@
     }
   }
 
+
+
   // 7: detect by header
   // @todo
 
@@ -421,9 +413,11 @@
   // @todo
 
   // 9: detect based on defined css classes
+  
   var cssClasses = {
-    'Bootstrap': ['hero-unit', '.carousel-control', '[class^="icon-"]:last-child']
+    "Bootstrap": ['hero-unit', '.carousel-control', '[class^="icon-"]' + ':last-child']
   };
+  
 
   for (var t in cssClasses) {
     if (t in _apps) continue;
@@ -463,7 +457,7 @@
   // convert to array
   var jsonString = JSON.stringify(_apps);
   // send back to background page
-  var meta = document.getElementById('chromesniffer_meta');
+  var meta = document.getElementById('angularinspector_meta');
   meta.content = jsonString;
 
   //Notify Background Page
