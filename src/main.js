@@ -13,10 +13,13 @@
     head.appendChild(script);
 
     meta.addEventListener('ready', function () {
-      var apps = JSON.parse(meta.content);
+      let content = JSON.parse(meta.content);
+      let apps = content.apps;
+      let host = content.host;
+
 
       if (Object.keys(apps).length > 0) {
-        chrome.runtime.sendMessage({msg: "result", apps: apps});
+        chrome.runtime.sendMessage({msg: "result", apps: apps, host: host});
       }
     });
   }

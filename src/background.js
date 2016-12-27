@@ -1,8 +1,3 @@
-window.dd = function(msg)
-{
-  console.log(msg);
-};
-
 var tabinfo = {};
 
 // initial list of header detection.  will move this to a separate file later.
@@ -75,11 +70,42 @@ function addScript(src) {
 }
 
 
+
+/**
+ * Respond to results from the main.js content script, or to requests from popup.html 
+ */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // 'result' event issued by main.js once app identification is complete
   if (request.msg == 'result') {
     var thisTab = tabinfo[sender.tab.id];
     thisTab['apps'] = request.apps;
+    let host = request.host;
+
+    // Report on Angular, if the user wanted us to
+    chrome.storage.sync.get({
+      optin: false,
+    }, function (items) {
+
+      // Only send if the user is opted in, the site has Angular, and we haven't already sent data.
+      if (items.optin && request.apps.Angular && !sessionStorage[host] && host != "localhost") {
+        data = {};
+        
+        sessionStorage[host] = true;
+
+
+        data[request.apps.Angular.replace(/\./g,"-")] = new Date().toISOString().substr(0,10);
+        $.ajax(
+          'https://angular-tracker.firebaseio.com/sites/' + host.replace(/\./g,"-") + '/angular.json',
+          {
+            method: 'PATCH',
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+          }
+        );
+      }
+    });
+
 
     // load in any apps we discovered from headers:
     for (var header in thisTab['headers']) {
@@ -113,14 +139,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         appTitle = mainApp + ' ' + request.apps[mainApp];
       }
 
-      chrome.pageAction.setIcon({tabId: sender.tab.id, path: 'apps/' + mainAppInfo.icon});
-      chrome.pageAction.setTitle({tabId: sender.tab.id, title: appTitle});
+      chrome.pageAction.setIcon({ tabId: sender.tab.id, path: 'apps/' + mainAppInfo.icon });
+      chrome.pageAction.setTitle({ tabId: sender.tab.id, title: appTitle });
     }
 
-    chrome.pageAction.show(sender.tab.id);
-    sendResponse({});
-  }
-  else if (request.msg == 'get') {
+    try {
+      chrome.pageAction.show(sender.tab.id);
+    }catch(ex) {
+      // The user probably re-used the tab.
+    }
+  } else if (request.msg == 'get') {
     // Request for 'get' comes from the popup page, asking for the list of apps
     var apps = tabinfo[request.tab];
     sendResponse(apps);

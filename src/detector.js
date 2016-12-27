@@ -455,7 +455,7 @@
   }
 
   // convert to array
-  var jsonString = JSON.stringify(_apps);
+  var jsonString = JSON.stringify({apps:_apps, host: window.location.hostname });
   // send back to background page
   var meta = document.getElementById('angularinspector_meta');
   meta.content = jsonString;

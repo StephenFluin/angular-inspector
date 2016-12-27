@@ -15,7 +15,7 @@ function save_options() {
 function restore_options() {
     console.log("Loading options...");
   chrome.storage.sync.get({
-    optin: true,
+    optin: false,
   }, function(items) {
       console.log("processing loaded options.",items);
     document.getElementById('optin').checked = items.optin;

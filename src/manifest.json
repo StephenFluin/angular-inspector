@@ -32,7 +32,8 @@
         "webRequest",
         "storage",
         "http://*/*",
-        "https://*/*"
+        "https://*/*",
+        "https://angular-tracker.firebaseio.com/sites/example.com/angular"
     ],
     "web_accessible_resources": [
         "detector.js"
