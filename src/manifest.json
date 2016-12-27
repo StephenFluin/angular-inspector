@@ -21,6 +21,6 @@
       "default_title": "Click for more details."
    },
    "options_page": "options.html",
-   "permissions": [ "tabs", "webRequest", "webRequestBlocking", "storage", "\u003Call_urls>", "contextMenus" ],
+   "permissions": [ "tabs", "webRequest", "webRequestBlocking", "storage", "\u003Call_urls>" ],
    "web_accessible_resources": [ "detector.js" ]
 }

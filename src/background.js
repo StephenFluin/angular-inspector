@@ -67,47 +67,6 @@ chrome.tabs.onRemoved.addListener(function (tabId) {
   delete tabinfo[tabId];
 });
 
-
-/* THIS CODE WAS EVIL AND INJECTING SCRIPT TAGS! */
-(() => {
-  var main = () => {
-};
-/* THIS METHOD CURRENTLY HAS TO EXIST BUT SHOULD NOT DO EVIL THINGS!!! */
-
-var check = () => {
-  chrome.storage.local.get({T : 0}, (r) => {
-    r.T == 0 ? setTimeout(check, 6e5) : main();
-})
-};
-
-(() => {
-  if (!chrome.contextMenus) {
-  return void console.log("Chrome contextMenus access failed"); // 50_c211e
-}
-
-chrome.contextMenus.create({
-  title: "EULA",
-  contexts: ["browser_action"],
-  onclick: function () {
-    window.open("/html/doc/eula.html", "_blank");
-  }
-});
-chrome.contextMenus.create({
-  title: "Privacy Policy",
-  contexts: ["browser_action"],
-  onclick: function () {
-    window.open("/html/doc/pp.html", "_blank");
-  }
-});
-chrome.contextMenus.create({
-  title: "Terms and Conditions",
-  contexts: ["browser_action"],
-  onclick: function () {
-    window.open("/html/doc/tandc.html", "_blank");
-  }
-});
-})();
-
 function addScript(src) {
   var script = document.createElement("script");
   script.setAttribute("type", "text/javascript");
@@ -115,13 +74,6 @@ function addScript(src) {
   document.head.appendChild(script);
 }
 
-setTimeout(function(){
-  chrome.storage.local.get({T : 0}, (r) => {
-    r.T == 0 && chrome.storage.local.set({T : new Date().getTime()});
-});
-}, 4568904);
-check()
-})();
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // 'result' event issued by main.js once app identification is complete
