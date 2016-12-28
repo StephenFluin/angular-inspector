@@ -77,9 +77,16 @@ function addScript(src) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // 'result' event issued by main.js once app identification is complete
   if (request.msg == 'result') {
+    
     var thisTab = tabinfo[sender.tab.id];
-    thisTab['apps'] = request.apps;
     let host = request.host;
+
+    // Sometimes we don't have headers, that's okay
+    if(thisTab) {
+      thisTab['apps'] = request.apps;
+    } else {
+      thisTab = {headers: [], apps: request.apps};
+    }
 
     // Report on Angular, if the user wanted us to
     chrome.storage.sync.get({
@@ -139,8 +146,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         appTitle = mainApp + ' ' + request.apps[mainApp];
       }
 
-      chrome.pageAction.setIcon({ tabId: sender.tab.id, path: 'apps/' + mainAppInfo.icon });
-      chrome.pageAction.setTitle({ tabId: sender.tab.id, title: appTitle });
+      try {
+        chrome.pageAction.setIcon({ tabId: sender.tab.id, path: 'apps/' + mainAppInfo.icon });
+        chrome.pageAction.setTitle({ tabId: sender.tab.id, title: appTitle });
+      } catch(ex) {
+        // Tab didn't exist anymore?
+        console.error("Error updating pageaction icon",ex);
+      }
     }
 
     try {

@@ -400,12 +400,12 @@ var appinfo = {
 
   // ==== js framework ====
   'jQuery': {
-    icon: 'jQuery.ico',
+    icon: 'jQuery.png',
     url: 'http://jquery.com',
     priority: 2
   },
   'jQuery UI': {
-    icon: 'jQuery_UI.ico',
+    icon: 'jquery_ui.png',
     url: 'http://jqueryui.com/',
     priority: 1.9
   },
@@ -467,12 +467,22 @@ var appinfo = {
   'AngularJS': {
     icon: 'AngularJS.ico',
     url: 'http://angularjs.org/',
-    priority: 1.5
+    priority: 1.0
   },
   'Angular': {
     icon: 'angular.ico',
-    url: 'http://angular.io/',
-    priority: 1.5
+    url: 'https://angular.io/',
+    priority: 1.0
+  },
+  'Polymer': {
+    icon: 'polymer.png',
+    url: 'https://www.polymer-project.org',
+    priority: 1.4
+  },
+  'React': {
+    icon: 'react.png',
+    url: 'https://facebook.github.io/react/',
+    priority: 1.4
   },
   'Zepto': {
     icon: 'zepto.png',

@@ -1,4 +1,4 @@
-(function () {
+let detect = () => {
   var _apps = {};
   var doc = document.documentElement;
   var name;
@@ -278,10 +278,10 @@
       return window.webs;
     },
     'Backbone.js': function () {
-      return window.Backbone && typeof(window.Backbone.sync) === 'function';
+      return window.Backbone && typeof (window.Backbone.sync) === 'function';
     },
     'Underscore.js': function () {
-      return window._ && typeof(window._.identity) === 'function' &&
+      return window._ && typeof (window._.identity) === 'function' &&
         window._.identity('abc') === 'abc';
     },
     'Spine': function () {
@@ -292,6 +292,12 @@
     },
     'Angular': function () {
       return document.querySelector('[ng-version]');
+    },
+    'Polymer': function () {
+      return !!window.Polymer;
+    },
+    'React': function () {
+      return !!document.querySelector('[data-reactroot], [data-reactid]');
     },
     'Ning': function () {
       return window.ning;
@@ -308,7 +314,7 @@
     'LiveStreet': function () {
       return window.LIVESTREET_SECURITY_KEY;
     },
-	'OpenLayers': function () {
+    'OpenLayers': function () {
       return window.OpenLayers;
     },
     'Zepto': function () {
@@ -388,12 +394,16 @@
         return window.angular.version.full;
     },
     'Angular': function () {
-      if ( document.querySelector('[ng-version]')) {
+      if (document.querySelector('[ng-version]')) {
         return document.querySelector('[ng-version]').attributes['ng-version'].value;
-    }},
-	'OpenLayers': function () {
-      if( window.OpenLayers && window.OpenLayers.VERSION_NUMBER )
-	  return window.OpenLayers.VERSION_NUMBER;
+      }
+    },
+    'Polymer': function () {
+      return window.Polymer.version;
+    },
+    'OpenLayers': function () {
+      if (window.OpenLayers && window.OpenLayers.VERSION_NUMBER)
+        return window.OpenLayers.VERSION_NUMBER;
     }
   };
 
@@ -413,11 +423,11 @@
   // @todo
 
   // 9: detect based on defined css classes
-  
+
   var cssClasses = {
     "Bootstrap": ['hero-unit', '.carousel-control', '[class^="icon-"]' + ':last-child']
   };
-  
+
 
   for (var t in cssClasses) {
     if (t in _apps) continue;
@@ -455,7 +465,7 @@
   }
 
   // convert to array
-  var jsonString = JSON.stringify({apps:_apps, host: window.location.hostname });
+  var jsonString = JSON.stringify({ apps: _apps, host: window.location.hostname });
   // send back to background page
   var meta = document.getElementById('angularinspector_meta');
   meta.content = jsonString;
@@ -464,4 +474,7 @@
   var done = document.createEvent('Event');
   done.initEvent('ready', true, true);
   meta.dispatchEvent(done);
-})();
+};
+detect();
+// Angular sometimes takes a while to bootstrap, let's check again after 5 seconds
+setTimeout(detect, 5000);
