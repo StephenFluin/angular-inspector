@@ -751,7 +751,7 @@ var appinfo = {
     priority: 1.5
   },
   'nginx': {
-    icon: 'nginx.ico',
+    icon: 'nginx.png',
     url: 'http://nginx.org/en/',
     priority: 1.5
   },

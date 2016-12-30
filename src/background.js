@@ -94,15 +94,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }, function (items) {
 
       // Only send if the user is opted in, the site has Angular, and we haven't already sent data.
-      if (items.optin && request.apps.Angular && !sessionStorage[host] && host != "localhost") {
+      if (items.optin && (request.apps.Angular || request.apps.AngularJS) && !sessionStorage[host] && host != "localhost") {
         data = {};
         
         sessionStorage[host] = true;
 
+        let type = request.apps.Angular ? "angular" : "angularjs";
+        let version = request.apps.Angular ? request.apps.Angular.replace(/\./g,"-") : request.apps.AngularJS.replace(/\./g,"-");
 
-        data[request.apps.Angular.replace(/\./g,"-")] = new Date().toISOString().substr(0,10);
+        data[version] = new Date().toISOString().substr(0,10);
         $.ajax(
-          'https://angular-tracker.firebaseio.com/sites/' + host.replace(/\./g,"-") + '/angular.json',
+          'https://angular-tracker.firebaseio.com/sites/' + host.replace(/\./g,"-") + '/' + type + '.json',
           {
             method: 'PATCH',
             data: JSON.stringify(data),
