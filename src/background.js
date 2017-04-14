@@ -92,7 +92,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     chrome.storage.sync.get({
       optin: false,
     }, function (items) {
-
+      
       // Only send if the user is opted in, the site has Angular, and we haven't already sent data.
       if (items.optin && (request.apps.Angular || request.apps.AngularJS) && !sessionStorage[host] && host != "localhost") {
         data = {};
@@ -103,6 +103,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         let version = request.apps.Angular ? request.apps.Angular.replace(/\./g,"-") : request.apps.AngularJS.replace(/\./g,"-");
 
         data[version] = new Date().toISOString().substr(0,10);
+        data['host'] = host;
         $.ajax(
           'https://angular-tracker.firebaseio.com/sites/' + host.replace(/\./g,"-") + '/' + type + '.json',
           {
