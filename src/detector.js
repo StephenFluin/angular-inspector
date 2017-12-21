@@ -439,16 +439,20 @@ let detect = () => {
 
       /* Iterate through all registered css classes and check for presence */
       for (var cssFile in document.styleSheets) {
-        for (var cssRule in document.styleSheets[cssFile].cssRules) {
-          var style = document.styleSheets[cssFile].cssRules[cssRule];
+        try {
+          for (var cssRule in document.styleSheets[cssFile].cssRules) {
+            var style = document.styleSheets[cssFile].cssRules[cssRule];
 
-          if (typeof style === "undefined") continue;
-          if (typeof style.selectorText === "undefined") continue;
+            if (typeof style === "undefined") continue;
+            if (typeof style.selectorText === "undefined") continue;
 
-          if (style.selectorText.indexOf(name) !== -1) {
-            act = true;
-            break;
+            if (style.selectorText.indexOf(name) !== -1) {
+              act = true;
+              break;
+            }
           }
+        } catch(exception) {
+          // Cannot access cssRules on cross origin domains
         }
         if (act === true) break;
       }
