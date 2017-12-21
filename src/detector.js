@@ -309,7 +309,13 @@ let detect = () => {
       return window.et_params;
     },
     'http2': function () {
-      return window.chrome.loadTimes().npnNegotiatedProtocol == 'h2';
+      if (window.performance && window.performance.getEntriesByType) {
+        return performance.getEntriesByType('navigation')[0] && performance.getEntriesByType('navigation')[0].nextHopProtocol === 'h2';
+      } else if( window.chrome && window.chrome.loadTimes ) {
+        return window.chrome.loadTimes().npnNegotiatedProtocol === 'h2';
+      } else {
+        return false;
+      }
     },
     'LiveStreet': function () {
       return window.LIVESTREET_SECURITY_KEY;
