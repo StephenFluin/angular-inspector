@@ -1,18 +1,18 @@
-var bg = chrome.extension.getBackgroundPage();
+let bg = chrome.extension.getBackgroundPage();
 
 chrome.tabs.getSelected(null,function(tab){
     chrome.extension.sendMessage({msg: "get",tab: tab.id}, function(response){
-        var display = document.getElementById('app_list');
+        let display = document.getElementById('app_list');
 
-        var apps = response && response.apps ? response.apps : {};
-        var html = '';
+        let apps = response && response.apps ? response.apps : {};
+        let html = '';
 
-        var appinfo = bg.appinfo;
-        var count = 0;
+        let appinfo = bg.appinfo;
+        let count = 0;
 
         table = document.createElement('table');
         tbody = document.createElement('tbody');
-        for (var appid in apps)
+        for (let appid in apps)
         {
 
             tr = document.createElement('tr');
@@ -32,8 +32,8 @@ chrome.tabs.getSelected(null,function(tab){
             }
 
             // use DOM to avoid error
-            var link = document.createElement('a');
-            var icon = document.createElement('img');
+            let link = document.createElement('a');
+            let icon = document.createElement('img');
 
             link.target = "_blank";
             link.title = app.title;
@@ -59,6 +59,7 @@ chrome.tabs.getSelected(null,function(tab){
         }
 
         table.appendChild(tbody);
+        display.innerHTML = '';
         display.appendChild(table);
 
     });

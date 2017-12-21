@@ -1,12 +1,12 @@
 let detect = () => {
-  var _apps = {};
-  var doc = document.documentElement;
-  var name;
-  var r;
+  let _apps = {};
+  let doc = document.documentElement;
+  let name;
+  let r;
 
   // 1: detect by meta tags, the first matching group will be version
-  var metas = doc.getElementsByTagName("meta");
-  var meta_tests = {
+  let metas = doc.getElementsByTagName("meta");
+  let meta_tests = {
     'generator': {
       'Joomla': /joomla!?\s*([\d\.]+)?/i,
       'vBulletin': /vBulletin\s*(.*)/i,
@@ -60,13 +60,13 @@ let detect = () => {
     }
   };
 
-  for (var idx in metas) {
-    var m = metas[idx];
+  for (let idx in metas) {
+    let m = metas[idx];
     name = m.name ? m.name.toLowerCase() : "";
 
     if (!meta_tests[name]) continue;
 
-    for (var t in meta_tests[name]) {
+    for (let t in meta_tests[name]) {
       if (t in _apps) continue;
 
       r = meta_tests[name][t].exec(m.content);
@@ -77,9 +77,9 @@ let detect = () => {
   }
 
   // 2: detect by script tags
-  var scripts = doc.getElementsByTagName("script");
+  let scripts = doc.getElementsByTagName("script");
 
-  var script_tests = {
+  let script_tests = {
     'Google Analytics': /google-analytics.com\/(ga|urchin).js/i,
     'Quantcast': /quantserve\.com\/quant\.js/i,
     'Prototype': /prototype\.js/i,
@@ -115,12 +115,12 @@ let detect = () => {
     'KISSmetrics': /i.kissmetrics.com\/i.js/
   };
 
-  for (var idx in scripts) {
-    var s = scripts[idx];
+  for (let idx in scripts) {
+    let s = scripts[idx];
     if (!s.src) continue;
     s = s.src;
 
-    for (var t in script_tests) {
+    for (let t in script_tests) {
       if (t in _apps) continue;
       if (script_tests[t].test(s)) {
         _apps[t] = -1;
@@ -131,16 +131,16 @@ let detect = () => {
   // 3: detect by domains
 
   // 4: detect by regexp
-  var text = document.documentElement.outerHTML;
-  var text_tests = {
-    'SMF': /<script .+\s+var smf_/i,
-    'Magento': /var BLANK_URL = '[^>]+js\/blank\.html'/i,
+  let text = document.documentElement.outerHTML;
+  let text_tests = {
+    'SMF': /<script .+\s+let smf_/i,
+    'Magento': /let BLANK_URL = '[^>]+js\/blank\.html'/i,
     'Tumblr': /<iframe src=("|')http:\/\/\S+\.tumblr\.com/i,
     'WordPress': /<link rel=("|')stylesheet("|') [^>]+wp-content/i,
     'Closure': /<script[^>]*>.*goog\.require/i,
     'Liferay': /<script[^>]*>.*LifeRay\.currentURL/i,
     'vBulletin': /vbmenu_control/i,
-    'MODx': /(<a[^>]+>Powered by MODx<\/a>|var el= \$\('modxhost'\);|<script type=("|')text\/javascript("|')>var MODX_MEDIA_PATH = "media";)/i,
+    'MODx': /(<a[^>]+>Powered by MODx<\/a>|let el= \$\('modxhost'\);|<script type=("|')text\/javascript("|')>let MODX_MEDIA_PATH = "media";)/i,
     'miniBB': /<a href=("|')[^>]+minibb.+\s*<!--End of copyright link/i,
     'PHP-Fusion': /(href|src)=["']?infusions\//i, // @todo: recheck this pattern again
     'OpenX': /(href|src)=["'].*delivery\/(afr|ajs|avw|ck)\.php[^"']*/,
@@ -158,7 +158,7 @@ let detect = () => {
     'Shibboleth': /<form action="\/idp\/Authn\/UserPassword" method="post">/
   };
 
-  for (var t in text_tests) {
+  for (let t in text_tests) {
     if (t in _apps) continue;
     if (text_tests[t].test(text)) {
       _apps[t] = -1;
@@ -168,7 +168,7 @@ let detect = () => {
   // TODO: merge inline detector with version detector
 
   // 5: detect by inline javascript
-  var js_tests = {
+  let js_tests = {
     'Drupal': function () {
       return window.Drupal;
     },
@@ -328,7 +328,7 @@ let detect = () => {
     }
   };
 
-  for (var t in js_tests) {
+  for (let t in js_tests) {
     if (t in _apps) continue;
     if (js_tests[t]()) {
       _apps[t] = -1;
@@ -336,7 +336,7 @@ let detect = () => {
   }
 
   // 6: detect some script version when available
-  var js_versions = {
+  let js_versions = {
     'Prototype': function () {
       if ('Prototype' in window && Prototype.Version !== undefined)
         return window.Prototype.Version;
@@ -413,7 +413,7 @@ let detect = () => {
     }
   };
 
-  for (var a in _apps) {
+  for (let a in _apps) {
     if (_apps[a] === -1 && js_versions[a]) {
       r = js_versions[a]();
       _apps[a] = r ? r : -1;
@@ -430,24 +430,24 @@ let detect = () => {
 
   // 9: detect based on defined css classes
 
-  var cssClasses = {
+  let cssClasses = {
     "Bootstrap": ['hero-unit', '.carousel-control', '[class^="icon-"]' + ':last-child']
   };
 
 
-  for (var t in cssClasses) {
+  for (let t in cssClasses) {
     if (t in _apps) continue;
 
-    var found = true;
-    for (var css in cssClasses[t]) {
-      var act = false;
+    let found = true;
+    for (let css in cssClasses[t]) {
+      let act = false;
       name = cssClasses[t][css];
 
       /* Iterate through all registered css classes and check for presence */
-      for (var cssFile in document.styleSheets) {
+      for (let cssFile in document.styleSheets) {
         try {
-          for (var cssRule in document.styleSheets[cssFile].cssRules) {
-            var style = document.styleSheets[cssFile].cssRules[cssRule];
+          for (let cssRule in document.styleSheets[cssFile].cssRules) {
+            let style = document.styleSheets[cssFile].cssRules[cssRule];
 
             if (typeof style === "undefined") continue;
             if (typeof style.selectorText === "undefined") continue;
@@ -475,13 +475,13 @@ let detect = () => {
   }
 
   // convert to array
-  var jsonString = JSON.stringify({ apps: _apps, host: window.location.hostname });
+  let jsonString = JSON.stringify({ apps: _apps, host: window.location.hostname });
   // send back to background page
-  var meta = document.getElementById('angularinspector_meta');
+  let meta = document.getElementById('angularinspector_meta');
   meta.content = jsonString;
 
   //Notify Background Page
-  var done = document.createEvent('Event');
+  let done = document.createEvent('Event');
   done.initEvent('ready', true, true);
   meta.dispatchEvent(done);
 };
