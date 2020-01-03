@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Angular Inspector",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Detect angular applications and javascript libraries run on browsing website.",
     "icons": {
         "128": "icon128.png",
@@ -22,9 +22,11 @@
         }
     ],
     "page_action": {
-        "default_icon": "icon.png",
+        "default_icon": {
+            "32": "icon.png"
+        },
         "default_popup": "popup.html",
-        "default_title": "Click for more details."
+        "default_title": "Angular Inspector"
     },
     "options_page": "options.html",
     "permissions": [
@@ -36,6 +38,6 @@
         "https://angular-tracker.firebaseio.com/sites/example.com/angular"
     ],
     "web_accessible_resources": [
-        "detector.js"
+        "dist/detector.js"
     ]
 }

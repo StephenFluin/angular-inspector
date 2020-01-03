@@ -118,19 +118,17 @@ let detect = () => {
   for (let idx in scripts) {
     let s = scripts[idx];
     if (!s.src) continue;
-    s = s.src;
+    let scriptSource = s.src;
 
     for (let t in script_tests) {
       if (t in _apps) continue;
-      if (script_tests[t].test(s)) {
+      if (script_tests[t].test(scriptSource)) {
         _apps[t] = -1;
       }
     }
   }
 
-  // 3: detect by domains
-
-  // 4: detect by regexp
+  // 3: detect by regexp
   let text = document.documentElement.outerHTML;
   let text_tests = {
     'SMF': /<script .+\s+let smf_/i,
@@ -155,7 +153,8 @@ let detect = () => {
     'Prostores': /-legacycss\/Asset">/,
     'osCommerce': /(product_info\.php\?products_id|_eof \/\/-->)/,
     'OpenCart': /index.php\?route=product\/product/,
-    'Shibboleth': /<form action="\/idp\/Authn\/UserPassword" method="post">/
+    'Shibboleth': /<form action="\/idp\/Authn\/UserPassword" method="post">/,
+    'JsAction': /jsaction=("|')|jscontroller=("|')/
   };
 
   for (let t in text_tests) {
@@ -165,166 +164,161 @@ let detect = () => {
     }
   }
 
-  // TODO: merge inline detector with version detector
-
-  // 5: detect by inline javascript
+  // 4: detect by inline javascript
   let js_tests = {
     'Drupal': function () {
-      return window.Drupal;
+      return window['Drupal'];
     },
     'TomatoCMS': function () {
-      return window.Tomato;
+      return window['Tomato'];
     },
     'MojoMotor': function () {
-      return window.Mojo;
+      return window['Mojo'];
     },
     'ErainCart': function () {
-      return window.fn_register_hooks;
+      return window['fn_register_hooks'];
     },
     'SugarCRM': function () {
-      return window.SUGAR;
+      return window['SUGAR'];
     },
     'YUI': function () {
-      return window.YAHOO | window.YUI;
+      return window['YAHOO'] | window['YUI'];
     },
     'jQuery': function () {
-      return window.jQuery;
+      return window['jQuery'];
     },
     'jQuery UI': function () {
-      return window.jQuery && window.jQuery.ui;
+      return window['jQuery'] && window['jQuery'].ui;
     },
     'Typekit': function () {
-      return window.Typekit;
+      return window['Typekit'];
     },
     'Facebook': function () {
-      return window.FB && window.FB.api;
+      return window['FB'] && window['FB'].api;
     },
     'ExtJS': function () {
-      return window.Ext;
+      return window['Ext'];
     },
     'Modernizr': function () {
-      return window.Modernizr;
+      return window['Modernizr'];
     },
     'Raphael': function () {
-      return window.Raphael;
+      return window['Raphael'];
     },
     'Cufon': function () {
-      return window.Cufon;
+      return window['Cufon'];
     },
     'sIFR': function () {
-      return window.sIFR;
+      return window['sIFR'];
     },
     'Xiti': function () {
-      return window.xtsite && window.xtpage;
+      return window['xtsite'] && window['xtpage'];
     },
     'Piwik': function () {
-      return window.Piwik;
+      return window['Piwik'];
     },
     'IPB': function () {
-      return window.IPBoard;
+      return window['IPBoard'];
     },
     'MyBB': function () {
-      return window.MyBB;
+      return window['MyBB'];
     },
     'Clicky': function () {
-      return window.clicky;
+      return window['clicky'];
     },
     'Woopra': function () {
-      return window.woopraTracker;
+      return window['woopraTracker'];
     },
     'RightJS': function () {
-      return window.RightJS;
+      return window['RightJS'];
     },
     'OpenWebAnalytics': function () {
-      return window.owa_baseUrl;
+      return window['owa_baseUrl'];
     },
     'Prettify': function () {
-      return window.prettyPrint;
+      return window['prettyPrint'];
     },
     'SiteCatalyst': function () {
-      return window.s_account;
+      return window['s_account'];
     },
     'Twitter': function () {
-      return window.twttr;
+      return window['twttr'];
     },
     'Coremetrics': function () {
-      return window.cmCreatePageviewTag;
+      return window['cmCreatePageviewTag'];
     },
     'Buzz': function () {
-      return window.google_buzz__base_url;
+      return window['google_buzz__base_url'];
+    },
+    'GAPI': function () {
+      return window['gapi'];
     },
     'Plus1': function () {
-      return window.gapi && window.gapi.plusone;
+      return window['gapi'] && window['gapi'].plusone;
     },
     'Google Loader': function () {
-      return window.google && window.google.load;
+      return window['google'] && window['google'].load;
     },
     'GoogleMapApi': function () {
-      return window.google && window.google.maps;
+      return window['google'] && window['google'].maps;
     },
     'Head JS': function () {
-      return window.head && window.head.js;
+      return window['head'] && window['head'].js;
     },
     'SWFObject': function () {
-      return window.swfobject;
+      return window['swfobject'];
     },
     'Chitika': function () {
-      return window.ch_client && window.ch_write_iframe;
+      return window['ch_client'] && window['ch_write_iframe'];
     },
     'Jimdo': function () {
-      return window.jimdoData;
+      return window['jimdoData'];
     },
     'Webs': function () {
-      return window.webs;
+      return window['webs'];
     },
     'Backbone.js': function () {
-      return window.Backbone && typeof (window.Backbone.sync) === 'function';
+      return window['Backbone'] && typeof (window['Backbone'].sync) === 'function';
     },
     'Underscore.js': function () {
-      return window._ && typeof (window._.identity) === 'function' &&
-        window._.identity('abc') === 'abc';
+      return window['_'] && typeof (window['_'].identity) === 'function' &&
+        window['_'].identity('abc') === 'abc';
     },
     'Spine': function () {
-      return window.Spine;
+      return window['Spine'];
     },
     'AngularJS': function () {
-      return window.angular;
+      return window['angular'];
     },
     'Angular': function () {
       return document.querySelector('[ng-version]');
     },
     'Polymer': function () {
-      return !!window.Polymer;
+      return !!window['Polymer'];
     },
     'React': function () {
       return !!document.querySelector('[data-reactroot], [data-reactid]');
     },
     'Ning': function () {
-      return window.ning;
+      return window['ning'];
     },
     'ektron': function () {
-      return window.Ektron;
+      return window['Ektron'];
     },
     'etracker': function () {
-      return window.et_params;
+      return window['et_params'];
     },
     'http2': function () {
-      if (window.performance && window.performance.getEntriesByType) {
-        return performance.getEntriesByType('navigation')[0] && performance.getEntriesByType('navigation')[0].nextHopProtocol === 'h2';
-      } else if( window.chrome && window.chrome.loadTimes ) {
-        return window.chrome.loadTimes().npnNegotiatedProtocol === 'h2';
-      } else {
-        return false;
-      }
+        return (<any>performance?.getEntriesByType('navigation')?.[0])?.nextHopProtocol === 'h2';
     },
     'LiveStreet': function () {
-      return window.LIVESTREET_SECURITY_KEY;
+      return window['LIVESTREET_SECURITY_KEY'];
     },
     'OpenLayers': function () {
-      return window.OpenLayers;
+      return window['OpenLayers'];
     },
     'Zepto': function () {
-      return window.Zepto;
+      return window['Zepto'];
     }
   };
 
@@ -335,69 +329,61 @@ let detect = () => {
     }
   }
 
-  // 6: detect some script version when available
+  // 5: detect some script version when available
   let js_versions = {
     'Prototype': function () {
-      if ('Prototype' in window && Prototype.Version !== undefined)
-        return window.Prototype.Version;
+      if (window['Prototype']?.Version !== undefined)
+        return window['Prototype'].Version;
     },
     'script.aculo.us': function () {
-      if ('Scriptaculous' in window && Scriptaculous.Version !== undefined)
-        return window.Scriptaculous.Version;
+      if (window['Scriptaculous']?.Version !== undefined)
+        return window['Scriptaculous'].Version;
     },
     'jQuery': function () {
-      if (typeof jQuery === 'function' && jQuery.prototype.jquery !== undefined)
-        return jQuery.prototype.jquery;
+      if (typeof jQuery === 'function' && window['jQuery'].prototype.jquery !== undefined)
+        return window['jQuery'].prototype.jquery;
     },
     'jQuery UI': function () {
-      if (typeof jQuery === 'function' && jQuery.ui && jQuery.ui.version !== undefined)
-        return jQuery.ui.version;
+        return window['jQuery']?.ui?.version;
     },
     'Dojo': function () {
-      if (typeof dojo === 'object' && dojo.version.toString() !== undefined)
-        return dojo.version;
+        return window['dojo']?.version;
     },
     'YUI': function () {
-      if (typeof YAHOO === 'object' && YAHOO.VERSION !== undefined)
-        return YAHOO.VERSION;
-      if ('YUI' in window && typeof YUI === 'function' && YUI().version !== undefined)
-        return YUI().version;
+      if (typeof window['YAHOO'] === 'object' && window['YAHOO'].VERSION !== undefined)
+        return window['YAHOO']?.VERSION;
+        return window['YUI']?.()?.version;
     },
     'MooTools': function () {
-      if (typeof MooTools === 'object' && MooTools.version !== undefined)
-        return MooTools.version;
+        return window['MooTools']?.version;
     },
     'ExtJS': function () {
-      if (typeof Ext === 'object' && Ext.version !== undefined)
-        return Ext.version;
+        return window['Ext']?.version;
     },
     'RightJS': function () {
-      if ('RightJS' in window && RightJS.version !== undefined)
-        return RightJS.version;
+        return window['RightJS']?.version;
     },
     'Modernizr': function () {
-      if (window.Modernizr && Modernizr._version !== undefined)
-        return Modernizr._version;
+        return window['Modernizr']?._version;
     },
     'Raphael': function () {
-      if (window.Raphael && Raphael.version !== undefined)
-        return Raphael.version;
+        return window['Raphael']?.version;
     },
     'Backbone.js': function () {
-      if (window.Backbone && window.Backbone.VERSION)
-        return window.Backbone.VERSION;
+      if (window['Backbone'] && window['Backbone'].VERSION)
+        return window['Backbone'].VERSION;
     },
     'Underscore.js': function () {
-      if (window._ && window._.VERSION)
-        return window._.VERSION;
+      if (window['_'] && window['_'].VERSION)
+        return window['_'].VERSION;
     },
     'Spine': function () {
-      if (window.Spine && window.Spine.version)
-        return window.Spine.version;
+      if (window['Spine'] && window['Spine'].version)
+        return window['Spine'].version;
     },
     'AngularJS': function () {
-      if (window.angular && window.angular.version && 'full' in window.angular.version)
-        return window.angular.version.full;
+      if (window['angular'] && window['angular'].version && 'full' in window['angular'].version)
+        return window['angular'].version.full;
     },
     'Angular': function () {
       if (document.querySelector('[ng-version]')) {
@@ -405,11 +391,11 @@ let detect = () => {
       }
     },
     'Polymer': function () {
-      return window.Polymer.version;
+      return window['Polymer'].version;
     },
     'OpenLayers': function () {
-      if (window.OpenLayers && window.OpenLayers.VERSION_NUMBER)
-        return window.OpenLayers.VERSION_NUMBER;
+      if (window['OpenLayers'] && window['OpenLayers'].VERSION_NUMBER)
+        return window['OpenLayers'].VERSION_NUMBER;
     }
   };
 
@@ -422,68 +408,13 @@ let detect = () => {
 
 
 
-  // 7: detect by header
-  // @todo
+  // @TODO detect by header, built-in database, defined css classes
 
-  // 8: detect based on built-in database
-  // @todo
-
-  // 9: detect based on defined css classes
-
-  let cssClasses = {
-    "Bootstrap": ['hero-unit', '.carousel-control', '[class^="icon-"]' + ':last-child']
-  };
-
-
-  for (let t in cssClasses) {
-    if (t in _apps) continue;
-
-    let found = true;
-    for (let css in cssClasses[t]) {
-      let act = false;
-      name = cssClasses[t][css];
-
-      /* Iterate through all registered css classes and check for presence */
-      for (let cssFile in document.styleSheets) {
-        try {
-          for (let cssRule in document.styleSheets[cssFile].cssRules) {
-            let style = document.styleSheets[cssFile].cssRules[cssRule];
-
-            if (typeof style === "undefined") continue;
-            if (typeof style.selectorText === "undefined") continue;
-
-            if (style.selectorText.indexOf(name) !== -1) {
-              act = true;
-              break;
-            }
-          }
-        } catch(exception) {
-          // Cannot access cssRules on cross origin domains
-        }
-        if (act === true) break;
-      }
-
-      found = found & act;
-    }
-
-    if (found === true) {
-      _apps[t] = -1;
-    }
-    else {
-      break;
-    }
-  }
-
-  // convert to array
-  let jsonString = JSON.stringify({ apps: _apps, host: window.location.hostname });
-  // send back to background page
+  // Notify meta tag
   let meta = document.getElementById('angularinspector_meta');
-  meta.content = jsonString;
-
-  //Notify Background Page
-  let done = document.createEvent('Event');
-  done.initEvent('ready', true, true);
-  meta.dispatchEvent(done);
+  let readyEvent = new CustomEvent('ready', {detail: { apps: _apps, host: window.location.hostname }});
+  
+  meta.dispatchEvent(readyEvent);
 };
 detect();
 // Angular sometimes takes a while to bootstrap, let's check again after 5 seconds
