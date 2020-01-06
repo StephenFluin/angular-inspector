@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Angular Inspector",
     "version": "0.7.0",
-    "description": "Detect angular applications and javascript libraries run on browsing website.",
+    "description": "Detect Angular apps and javascript libraries",
     "icons": {
         "128": "icon128.png",
         "48": "icon48.png"

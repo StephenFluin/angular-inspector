@@ -1,135 +1,134 @@
 const ToolMetadata = {
-    // ==== services ====
     Tumblr: {
-        icon: 'Tumblr.ico',
+        icon: 'Tumblr.png',
         url: 'http://tumblr.com',
         priority: 0.9,
     },
     TypePad: {
-        icon: 'TypePad.ico',
+        icon: 'TypePad.png',
         url: 'http://typepad.com',
         priority: 0.9,
     },
     Blogger: {
-        icon: 'Blogger.ico',
+        icon: 'Blogger.png',
         url: 'http://blogger.com',
         priority: 0.9,
     },
     'Express.js': {
-        icon: 'webs.ico',
+        icon: 'webs.png',
         url: 'http://expressjs.com/',
         priority: 3,
     },
     Webs: {
-        icon: 'webs.ico',
+        icon: 'webs.png',
         url: 'http://www.webs.com/',
         priority: 0.9,
     },
     Weebly: {
-        icon: 'weebly.ico',
+        icon: 'weebly.png',
         url: 'http://www.weebly.com/',
         priority: 0.9,
     },
     Webnode: {
-        icon: 'webnode.ico',
+        icon: 'webnode.png',
         url: 'http://www.webnode.com/',
         priority: 0.9,
     },
     Jimdo: {
-        icon: 'jimdo.ico',
+        icon: 'jimdo.png',
         url: 'http://www.jimdo.com',
         priority: 0.9,
     },
     Jigsy: {
-        icon: 'jigsy.ico',
+        icon: 'jigsy.png',
         url: 'http://jigsy.com',
         priority: 0.9,
     },
     Yola: {
-        icon: 'yola.ico',
+        icon: 'yola.png',
         url: 'http://www.yola.com/',
         priority: 0.9,
     },
 
     // ==== cms or framework ====
     vBulletin: {
-        icon: 'vBulletin.ico',
+        icon: 'vBulletin.png',
         url: 'http://www.vbulletin.com/',
         priority: 1,
     },
     SMF: {
         title: 'Simple Machines Forum',
-        icon: 'SMF.ico',
+        icon: 'SMF.png',
         url: 'http://www.simplemachines.org/',
         priority: 1,
     },
     phpBB: {
-        icon: 'phpBB.ico',
+        icon: 'phpBB.png',
         url: 'http://www.phpbb.com',
         priority: 1,
     },
     IPB: {
         title: 'Invision Power Board',
-        icon: 'IPB.ico',
+        icon: 'IPB.png',
         url: 'http://invisionpower.com/',
         priority: 1,
     },
     miniBB: {
-        icon: 'miniBB.ico',
+        icon: 'miniBB.png',
         url: 'http://www.minibb.com/',
         priority: 1,
     },
     MyBB: {
-        icon: 'mybb.ico',
+        icon: 'mybb.png',
         url: 'http://www.mybb.com/',
         priority: 1,
     },
     XenForo: {
-        icon: 'xenforo.ico',
+        icon: 'xenforo.png',
         url: 'http://xenforo.com',
         priority: 1,
     },
 
     Drupal: {
-        icon: 'Drupal.ico',
+        icon: 'Drupal.png',
         url: 'http://drupal.org',
         priority: 1,
     },
     Ubercart: {
-        icon: 'Ubercart.ico',
+        icon: 'Ubercart.png',
         url: 'http://www.ubercart.org/',
-        priority: 0.9, // higher priority compared with Drupal
+        priority: 0.9,
     },
 
     AlphaCMS: {
-        icon: 'alphacms.ico',
+        icon: 'alphacms.png',
         url: 'http://www.mego.com.vn',
         priority: 1,
     },
     TomatoCMS: {
-        icon: 'tomatocms.ico',
+        icon: 'tomatocms.png',
         url: 'http://www.tomatocms.com/',
         priority: 1,
     },
 
     WordPress: {
-        icon: 'WordPress.ico',
+        icon: 'WordPress.png',
         url: 'http://wordpress.org',
         priority: 1,
     },
     WPML: {
-        icon: 'WPML.ico',
+        icon: 'WPML.png',
         url: 'http://wpml.org/',
         priority: 1.1,
     },
 
     bbPress: {
-        icon: 'bbPress.ico',
+        icon: 'bbPress.png',
         url: 'http://bbpress.org',
         priority: 1,
     },
     'Movable Type': {
-        icon: 'MovableType.ico',
+        icon: 'MovableType.png',
         url: 'http://www.movabletype.org/',
         priority: 1,
     },
@@ -145,45 +144,45 @@ const ToolMetadata = {
     },
 
     MediaWiki: {
-        icon: 'MediaWiki.ico',
+        icon: 'MediaWiki.png',
         url: 'http://www.mediawiki.org/',
         priority: 1,
     },
     DokuWiki: {
-        icon: 'DokuWiki.ico',
+        icon: 'DokuWiki.png',
         url: 'http://www.dokuwiki.org/',
         priority: 1,
     },
 
     OpenACS: {
-        icon: 'openacs.ico',
+        icon: 'openacs.png',
         url: 'http://openacs.org',
         priority: 1,
     },
 
     Joomla: {
-        icon: 'Joomla.ico',
+        icon: 'Joomla.png',
         url: 'http://joomla.org',
         priority: 1,
     },
     Magento: {
-        icon: 'Magento.ico',
+        icon: 'Magento.png',
         url: 'http://www.magentocommerce.com/',
         priority: 1,
     },
     XOOPS: {
-        icon: 'XOOPS.ico',
+        icon: 'XOOPS.png',
         url: 'http://xoops.org',
         priority: 1,
     },
     Plone: {
-        icon: 'Plone.ico',
+        icon: 'Plone.png',
         url: 'http://plone.org/',
         priority: 1,
     },
     CMSMadeSimple: {
         title: 'CMS Made Simple',
-        icon: 'CMSMadeSimple.ico',
+        icon: 'CMSMadeSimple.png',
         url: 'http://www.cmsmadesimple.org/',
         priority: 1,
     },
@@ -193,83 +192,83 @@ const ToolMetadata = {
         priority: 1,
     },
     MODx: {
-        icon: 'MODx.ico',
+        icon: 'MODx.png',
         url: 'http://modxcms.com/',
         priority: 1,
     },
     'Amiro.CMS': {
-        icon: 'Amiro.CMS.ico',
+        icon: 'Amiro.CMS.png',
         url: 'http://www.amirocms.com/',
         priority: 1,
     },
     JaliosJCMS: {
-        icon: 'JaliosJCMS.ico',
+        icon: 'JaliosJCMS.png',
         url: 'http://www.jalios.com',
         priority: 1,
         title: 'Jalios JCMS',
     },
     Koobi: {
-        icon: 'Koobi.ico',
+        icon: 'Koobi.png',
         url: 'http://www.dream4.de/cms/',
         priority: 1,
     },
     Liferay: {
-        icon: 'LifeRay.ico',
+        icon: 'LifeRay.png',
         url: 'http://www.liferay.com',
         priority: 1,
     },
     TYPO3: {
-        icon: 'TYPO3.ico',
+        icon: 'TYPO3.png',
         url: 'http://typo3.org/',
         priority: 1,
     },
     Contao: {
-        icon: 'contao.ico',
+        icon: 'contao.png',
         url: 'http://www.contao.org',
         priority: 1,
     },
     Fatwire: {
-        icon: 'Fatwire.ico',
+        icon: 'Fatwire.png',
         url: 'http://www.fatwire.com',
         priority: 1,
     },
     'PHP-Fusion': {
-        icon: 'PHP-Fusion.ico',
+        icon: 'PHP-Fusion.png',
         url: 'http://php-fusion.co.uk/',
         priority: 1,
     },
     'PHP-Nuke': {
-        icon: 'PHP-Nuke.ico',
+        icon: 'PHP-Nuke.png',
         url: 'http://phpnuke.org/',
         priority: 1,
     },
     WebGUI: {
-        icon: 'WebGUI.ico',
+        icon: 'WebGUI.png',
         url: 'http://www.webgui.org/',
         priority: 1,
     },
     'ez Publish': {
-        icon: 'eZ.ico',
+        icon: 'eZ.png',
         url: 'http://ez.no/',
         priority: 1,
     },
     BIGACE: {
-        icon: 'BIGACE.ico',
+        icon: 'BIGACE.png',
         url: 'http://www.bigace.de/',
         priority: 1,
     },
     OpenCMS: {
-        icon: 'opencms.ico',
+        icon: 'opencms.png',
         url: 'http://www.opencms.org/',
         priority: 1,
     },
     '1c-bitrix': {
-        icon: '1c-bitrix.ico',
+        icon: '1c-bitrix.png',
         url: 'http://www.1c-bitrix.ru/',
         priority: 1,
     },
     MojoMotor: {
-        icon: 'mojomotor.ico',
+        icon: 'mojomotor.png',
         url: '	http://mojomotor.com',
         priority: 1,
     },
@@ -280,30 +279,30 @@ const ToolMetadata = {
     },
     Perch: {
         // not yet supported
-        icon: 'perch.ico',
+        icon: 'perch.png',
         url: 'http://grabaperch.com/',
         priority: 1,
     },
     DataLifeEngine: {
         title: 'DataLife Engine',
-        icon: 'datalife.ico',
+        icon: 'datalife.png',
         url: 'http://dle-news.ru/',
         priority: 1,
     },
 
     Elgg: {
-        icon: 'Elgg.ico',
+        icon: 'Elgg.png',
         url: 'http://www.elgg.org/',
         priority: 1,
     },
 
     DotNetNuke: {
-        icon: 'DotNetNuke.ico',
+        icon: 'DotNetNuke.png',
         url: 'http://www.dotnetnuke.com/',
         priority: 1,
     },
     Sitefinity: {
-        icon: 'Sitefinity.ico',
+        icon: 'Sitefinity.png',
         url: 'http://www.sitefinity.com/',
         priority: 1,
     },
@@ -315,48 +314,48 @@ const ToolMetadata = {
     },
 
     ZenPhoto: {
-        icon: 'ZenPhoto.ico',
+        icon: 'ZenPhoto.png',
         url: 'http://www.zenphoto.org',
         priority: 1,
     },
     Gallery2: {
-        icon: 'Gallery2.ico',
+        icon: 'Gallery2.png',
         url: 'http://gallery.menalto.com/',
         priority: 1,
     },
 
     Avactis: {
-        icon: 'avactis.ico',
+        icon: 'avactis.png',
         url: 'http://www.avactis.com',
         priority: 1,
     },
     PrestaShop: {
-        icon: 'PrestaShop.ico',
+        icon: 'PrestaShop.png',
         url: 'http://www.prestashop.com/',
         priority: 1,
     },
     Prostores: {
-        icon: 'prostores.ico',
+        icon: 'prostores.png',
         url: 'http://www.prostores.com',
         priority: 1,
     },
     ZenCart: {
-        icon: 'zencart.ico',
+        icon: 'zencart.png',
         url: 'http://www.zen-cart.com',
         priority: 1,
     },
     ErainCart: {
-        icon: 'eraincart.ico',
+        icon: 'eraincart.png',
         url: 'http://eraincart.com',
         priority: 1,
     },
     Volusion: {
-        icon: 'volusion.ico',
+        icon: 'volusion.png',
         url: 'http://www.volusion.com',
         priority: 1,
     },
     osCommerce: {
-        icon: 'osCommerce.ico',
+        icon: 'osCommerce.png',
         url: 'http://www.oscommerce.com',
         priority: 1,
     },
@@ -372,12 +371,12 @@ const ToolMetadata = {
         priority: 1,
     },
     SugarCRM: {
-        icon: 'sugarcrm.ico',
+        icon: 'sugarcrm.png',
         url: 'http://www.sugarcrm.com',
         priority: 1,
     },
     PivotX: {
-        icon: 'pivotx.ico',
+        icon: 'pivotx.png',
         url: 'http://pivotx.net',
         priority: 1,
     },
@@ -411,12 +410,12 @@ const ToolMetadata = {
         priority: 1.9,
     },
     ExtJS: {
-        icon: 'ExtJS.ico',
+        icon: 'ExtJS.png',
         url: 'http://www.extjs.com/',
         priority: 2,
     },
     Prototype: {
-        icon: 'Prototype.ico',
+        icon: 'Prototype.png',
         url: 'http://www.prototypejs.org/',
         priority: 2,
     },
@@ -426,22 +425,22 @@ const ToolMetadata = {
         priority: 2,
     },
     MooTools: {
-        icon: 'MooTools.ico',
+        icon: 'MooTools.png',
         url: 'http://mootools.net/',
         priority: 2,
     },
     Dojo: {
-        icon: 'dojo.ico',
+        icon: 'dojo.png',
         url: 'http://www.dojotoolkit.org/',
         priority: 2,
     },
     'script.aculo.us': {
-        icon: 'script.aculo.us.ico',
+        icon: 'script.aculo.us.png',
         url: 'http://script.aculo.us/',
         priority: 1.9,
     },
     YUI: {
-        icon: 'YUI.ico',
+        icon: 'YUI.png',
         url: 'http://developer.yahoo.com/yui/',
         priority: 2,
     },
@@ -456,22 +455,22 @@ const ToolMetadata = {
         priority: 2,
     },
     OpenLayers: {
-        icon: 'OpenLayers.ico',
+        icon: 'OpenLayers.png',
         url: 'http://openlayers.org/',
         priority: 1.9,
     },
     Spine: {
-        icon: 'spine.ico',
+        icon: 'spine.png',
         url: 'http://spinejs.com',
         priority: 1.9,
     },
     AngularJS: {
-        icon: 'AngularJS.ico',
+        icon: 'AngularJS.png',
         url: 'http://angularjs.org/',
         priority: 1.0,
     },
     Angular: {
-        icon: 'angular.ico',
+        icon: 'angular.png',
         url: 'https://angular.io/',
         priority: 1.0,
     },
@@ -490,19 +489,18 @@ const ToolMetadata = {
         url: 'http://zeptojs.com/',
         priority: 1.5,
     },
-    // ==== js tools ====
     Raphael: {
-        icon: 'raphael.ico',
+        icon: 'raphael.png',
         url: 'http://raphaeljs.com/',
         priority: 2.9,
     },
     Typekit: {
-        icon: 'typekit.ico',
+        icon: 'typekit.png',
         url: 'http://typekit.com/',
         priority: 2.9,
     },
     Cufon: {
-        icon: 'cufon.ico',
+        icon: 'cufon.png',
         url: 'http://cufon.shoqolate.com/',
         priority: 2.9,
     },
@@ -512,19 +510,19 @@ const ToolMetadata = {
         priority: 2.9,
     },
     Modernizr: {
-        icon: 'modernizr.ico',
+        icon: 'modernizr.png',
         url: 'http://www.modernizr.com/',
         priority: 2.9,
     },
     Facebook: {
         title: 'Facebook Social plugins',
-        icon: 'facebook.ico',
+        icon: 'facebook.png',
         url: 'http://developers.facebook.com/',
         priority: 2.9,
     },
     Twitter: {
         title: 'Twitter plugins',
-        icon: 'twitter.ico',
+        icon: 'twitter.png',
         url: 'http://dev.twitter.com',
         priority: 2.9,
     },
@@ -541,7 +539,7 @@ const ToolMetadata = {
         priority: 2.9,
     },
     AddThis: {
-        icon: 'addthis.ico',
+        icon: 'addthis.png',
         url: 'http://www.addthis.com',
         priority: 2.9,
     },
@@ -562,60 +560,60 @@ const ToolMetadata = {
         priority: 2.9,
     },
     'Google Loader': {
-        icon: 'google.ico',
+        icon: 'google.png',
         url: 'http://code.google.com/apis/loader',
         priority: 2.9,
     },
 
     Woopra: {
-        icon: 'woopra.ico',
+        icon: 'woopra.png',
         url: 'http://www.woopra.com',
         priority: 3,
     },
     OpenWebAnalytics: {
-        icon: 'owa.ico',
+        icon: 'owa.png',
         url: 'http://www.openwebanalytics.com',
         priority: 3,
     },
     'Google Analytics': {
-        icon: 'Google_Analytics.ico',
+        icon: 'Google_Analytics.png',
         url: 'http://www.google.com/analytics/',
         priority: 3,
     },
     SiteCatalyst: {
-        icon: 'SiteCatalyst.ico',
+        icon: 'SiteCatalyst.png',
         url: 'http://www.omniture.com',
         priority: 3,
     },
     Coremetrics: {
-        icon: 'coremetrics.ico',
+        icon: 'coremetrics.png',
         url: 'http://www.coremetrics.com',
         priority: 3,
     },
     Quantcast: {
-        icon: 'Quantcast.ico',
+        icon: 'Quantcast.png',
         url: 'http://www.quantcast.com/',
         priority: 3,
     },
     Xiti: {
         title: 'Xiti Tracker',
-        icon: 'xiti.ico',
+        icon: 'xiti.png',
         url: 'http://xiti.com/',
         priority: 3,
     },
     Piwik: {
-        icon: 'Piwik.ico',
+        icon: 'Piwik.png',
         url: 'http://piwik.org/',
         priority: 3,
     },
     Clicky: {
-        icon: 'clicky.ico',
+        icon: 'clicky.png',
         url: 'http://getclicky.com/',
         priority: 3,
     },
 
     Disqus: {
-        icon: 'Disqus.ico',
+        icon: 'Disqus.png',
         url: 'http://disqus.com/',
         priority: 1,
     },
@@ -625,23 +623,23 @@ const ToolMetadata = {
         priority: 3,
     },
     Wibiya: {
-        icon: 'Wibiya.ico',
+        icon: 'Wibiya.png',
         url: 'http://wibiya.com/',
         priority: 3,
     },
     Prettify: {
         title: 'Google Code Prettify',
-        icon: 'google.ico',
+        icon: 'google.png',
         url: 'http://code.google.com/p/google-code-prettify/',
         priority: 3,
     },
     reCaptcha: {
-        icon: 'reCaptcha.ico',
+        icon: 'reCaptcha.png',
         url: 'http://recaptcha.net/',
         priority: 4,
     },
     Mollom: {
-        icon: 'mollom.ico',
+        icon: 'mollom.png',
         url: 'http://mollom.com',
         priority: 4,
     },
@@ -658,13 +656,13 @@ const ToolMetadata = {
         priority: 4,
     },
     SWFObject: {
-        icon: 'SWFObject.ico',
+        icon: 'SWFObject.png',
         url: 'http://code.google.com/p/swfobject/',
         priority: 4,
     },
 
     OpenX: {
-        icon: 'OpenX.ico',
+        icon: 'OpenX.png',
         url: 'http://openx.org',
         priority: 5,
     },
@@ -674,80 +672,80 @@ const ToolMetadata = {
         priority: 5,
     },
     Chitika: {
-        icon: 'chitika.ico',
+        icon: 'chitika.png',
         url: 'http://chitika.com/',
         priority: 5,
     },
     BuySellAds: {
-        icon: 'buysellads.ico',
+        icon: 'buysellads.png',
         url: 'http://buysellads.com/',
         priority: 5,
     },
     HumansTxt: {
-        icon: 'humanstxt.ico',
+        icon: 'humanstxt.png',
         url: 'http://humanstxt.org/',
         priority: 5,
     },
     Bootstrap: {
-        icon: 'bootstrap.ico',
+        icon: 'bootstrap.png',
         url: 'http://twitter.github.com/bootstrap/',
         priority: 5,
     },
     Ning: {
-        icon: 'ning.ico',
+        icon: 'ning.png',
         url: 'http://www.ning.com/',
         priority: 1,
     },
     ektron: {
-        icon: 'ektron.ico',
+        icon: 'ektron.png',
         url: 'http://www.ektron.com/',
         priority: 1,
     },
     'Mura CMS': {
         title: 'Mura CMS',
-        icon: 'muracms.ico',
+        icon: 'muracms.png',
         url: 'http://www.getmura.com/',
         priority: 1,
     },
     'Tiki Wiki CMS Groupware': {
         title: 'Tiki Wiki CMS Groupware',
-        icon: 'TikiWikiCms.ico',
+        icon: 'TikiWikiCms.png',
         url: 'http://info.tiki.org/',
         priority: 1,
     },
     etracker: {
         title: 'etracker',
-        icon: 'etracker.ico',
+        icon: 'etracker.png',
         url: 'http://etracker.com/',
         priority: 1.2,
     },
     OpenTag: {
-        icon: 'OpenTag.ico',
+        icon: 'OpenTag.png',
         url: 'http://opentag.qubitproducts.com',
         priority: 1.2,
     },
     http2: {
-        icon: 'spdy.ico',
+        icon: 'spdy.png',
         url: 'https://http2.github.io/',
         priority: 5,
     },
     KISSmetrics: {
-        icon: 'kissmetrics.ico',
+        icon: 'kissmetrics.png',
         url: 'http://kissmetrics.com/',
         priority: 1,
     },
     LiveStreet: {
-        icon: 'LiveStreetCms.ico',
+        icon: 'LiveStreetCms.png',
         url: 'http://livestreetcms.com/',
         priority: 1,
     },
     PHP: {
-        icon: 'php.ico',
+        icon: 'php.png',
         url: 'http://php.net/',
         priority: 1.5,
     },
     Apache: {
-        icon: 'apache.ico',
+        icon: 'apache.png',
         url: 'http://httpd.apache.org/',
         priority: 1.5,
     },
@@ -757,34 +755,33 @@ const ToolMetadata = {
         priority: 1.5,
     },
     Varnish: {
-        icon: 'varnish.ico',
+        icon: 'varnish.png',
         url: 'https://www.varnish-cache.org/',
         priority: 1.5,
     },
     IIS: {
-        icon: 'iis.ico',
+        icon: 'iis.png',
         url: 'http://www.iis.net/',
         priority: 1.5,
     },
     'ASP.NET': {
-        icon: 'asp.net.ico',
+        icon: 'asp.net.png',
         url: 'http://www.asp.net/',
         priority: 1.5,
     },
     Nette: {
-        icon: 'nette.ico',
+        icon: 'nette.png',
         url: 'http://nette.org/',
         priority: 1.5,
     },
     Dinkly: {
-        icon: 'dinkly.ico',
+        icon: 'dinkly.png',
         url: 'https://github.com/lewsid/dinkly/',
         priority: 1.5,
     },
 
-    // ==== misc ====
+    // default
     '': {
-        // default
         icon: 'unknown.jpg',
         url: 'http://google.com/search?q=%s',
     },
@@ -792,7 +789,6 @@ const ToolMetadata = {
 
 const KnownHeaders = {
     'x-powered-by': {
-        // 'Ruby on Rails': /Phusion Passenger/,
         'Express.js': /Express/,
         PHP: /PHP\/?(.*)/,
         Dinkly: /DINKLY\/?(.*)/,
