@@ -319,6 +319,9 @@ let detect = () => {
     },
     'Zepto': function () {
       return window['Zepto'];
+    },
+    'Vue': () => {
+      return window['Vue']?.version
     }
   };
 

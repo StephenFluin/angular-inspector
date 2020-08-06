@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Angular Inspector",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "Detect Angular apps and javascript libraries",
     "icons": {
         "128": "icon128.png",
@@ -35,7 +35,7 @@
         "storage",
         "http://*/*",
         "https://*/*",
-        "https://angular-tracker.firebaseio.com/sites/example.com/angular"
+        "https://inspector-b2058.firebaseio.com/sites/example.com/angular"
     ],
     "web_accessible_resources": [
         "dist/detector.js"
