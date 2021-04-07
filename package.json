@@ -4,5 +4,9 @@
     "@types/jquery": "^3.3.31",
     "typescript": "^3.7.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "serve": "tsc --watch"
+  }
 }

@@ -13,7 +13,7 @@
     "content_scripts": [
         {
             "js": [
-                "main.js"
+                "dist/main.js"
             ],
             "matches": [
                 "http://*/*",

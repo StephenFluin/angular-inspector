@@ -1,6 +1,6 @@
 // Saves options to chrome.storage
 function save_options() {
-    var optin = document.getElementById('optin').checked;
+    var optin = document.getElementById('optin')['checked'];
     chrome.storage.sync.set(
         {
             optin: optin,
@@ -23,7 +23,7 @@ function restore_options() {
         },
         function(items) {
             // processing loaded options from items
-            document.getElementById('optin').checked = items.optin;
+            document.getElementById('optin')['checked'] = items.optin;
         }
     );
 }

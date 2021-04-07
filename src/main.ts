@@ -1,7 +1,6 @@
 /**
  * This file is included in every page, keep it small!
  */
-console.log('main was loaded.');
 (function() {
     const head = document.head;
 
@@ -15,7 +14,7 @@ console.log('main was loaded.');
         head.appendChild(script);
 
         meta.addEventListener('ready', event => {
-            chrome.runtime.sendMessage({ msg: 'result', detail: event.detail });
+            chrome.runtime.sendMessage({ msg: 'result', detail: event['detail'] });
         });
     }
 })();

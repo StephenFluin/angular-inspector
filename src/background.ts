@@ -20,7 +20,6 @@ class Background {
         );
 
         chrome.tabs.onRemoved.addListener(tabId => {
-            console.log('Deleting data for tab',tabId);
             // free memory
             delete this.allCollectedTabResults[tabId];
         });
@@ -29,18 +28,16 @@ class Background {
          * Respond to results from the main.js content script, or to requests from popup.html
          */
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-            console.log('message received!', request, sender, sendResponse);
             if (request.msg == 'result') {
-                console.log('results ready in bg!');
+                // console.log('results ready in bg!');
                 return this.resultReceived(request, sender, sendResponse);
             } else if (request.msg == 'get') {
-                console.log('received a request for data!');
+                // console.log('received a request for data!');
                 return this.getReceived(request, sender, sendResponse);
             } else {
-                console.error('unkown message received in bg thread');
+                console.error('unkown message received in bg thread',request,sender);
             }
         });
-        console.log('background thread ready for messages!');
     }
 
     // Scans through the headers finding matches
@@ -73,11 +70,11 @@ class Background {
             this.allCollectedTabResults[sender.tab.id] = {};
         }
         let thisTab = this.allCollectedTabResults[sender.tab.id];
-        let host = request.host;
+        let host = request.detail.host;
 
         // Sometimes we don't have headers, that's okay
         if (thisTab) {
-            console.log('apps come from request:',request.detail.apps);
+            // console.log('apps come from request:',request.detail.apps);
             thisTab['apps'] = request.detail.apps;
         } else {
             thisTab['headers'] = [];
@@ -109,7 +106,7 @@ class Background {
                     data[version] = new Date().toISOString().substr(0, 10);
                     data['host'] = host;
                     $.ajax(
-                        'https://angular-tracker.firebaseio.com/sites/' +
+                        'https://inspector-b2058.firebaseio.com/sites/' +
                             host.replace(/\./g, '-') +
                             '/' +
                             type +
@@ -169,7 +166,6 @@ class Background {
             }
         }
 
-        console.log('got to the end of processing results in background.');
         try {
             chrome.pageAction.show(sender.tab.id);
         } catch (ex) {
@@ -182,8 +178,8 @@ class Background {
      */
     getReceived(request, sender, sendResponse) {
         var apps = this.allCollectedTabResults[request.tab];
-        console.log('sending response to popop for',request.tab,apps);
-        console.log(this.allCollectedTabResults);
+        // console.log('sending response to popop for',request.tab,apps);
+        // console.log(this.allCollectedTabResults);
         sendResponse(apps);
     }
 }

@@ -1,8 +1,8 @@
 chrome.tabs.getSelected(null, function(tab) {
     chrome.runtime.sendMessage({ msg: 'get', tab: tab.id }, response => {
-        console.log('fetching!, response:', response);
+        // console.log('fetching!, response:', response);
         if (response?.apps && Object.keys(response?.apps).length === 0) {
-            console.log('no results, giving up');
+            console.debug('no results from tab, giving up');
             return;
         }
         let display = document.getElementById('app_list');
