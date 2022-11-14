@@ -1,12 +1,13 @@
 {
   "dependencies": {
-    "@types/chrome": "^0.0.91",
+    "@types/chrome": "^0.0.200",
+    "@types/filesystem": "^0.0.32",
     "@types/jquery": "^3.3.31",
-    "typescript": "^3.7.4"
+    "typescript": "^4.8.4"
   },
   "devDependencies": {},
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cd src && rm -rf ../ai.zip && zip -r ../ai.zip ./ --exclude=*.ts",
     "serve": "tsc --watch"
   }
 }
