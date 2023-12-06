@@ -5,10 +5,10 @@ function save_options() {
         {
             optin: optin,
         },
-        function() {
+        function () {
             // Update status to let user know options were saved.
 
-            toast('Options saved.');
+            toast('Options saved, opt-in set to ' + (optin ? 'on' : 'off') + '.');
         }
     );
 }
@@ -21,7 +21,7 @@ function restore_options() {
         {
             optin: false,
         },
-        function(items) {
+        function (items) {
             // processing loaded options from items
             document.getElementById('optin')['checked'] = items.optin;
         }

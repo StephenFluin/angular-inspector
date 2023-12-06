@@ -1,7 +1,7 @@
 /**
  * This file is included in every page, keep it small!
  */
-(function() {
+(function () {
     const head = document.head;
 
     if (head) {
@@ -10,10 +10,10 @@
         meta.id = 'angularinspector_meta';
         head.appendChild(meta);
         const script = document.createElement('script');
-        script.src = chrome.extension.getURL('dist/detector.js');
+        script.src = chrome.runtime.getURL('dist/detector.js');
         head.appendChild(script);
 
-        meta.addEventListener('ready', event => {
+        meta.addEventListener('ready', (event) => {
             chrome.runtime.sendMessage({ msg: 'result', detail: event['detail'] });
         });
     }

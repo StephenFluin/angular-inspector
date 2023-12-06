@@ -1,4 +1,4 @@
-const ToolMetadata = {
+export const ToolMetadata = {
     Tumblr: {
         icon: 'Tumblr.png',
         url: 'http://tumblr.com',
@@ -757,7 +757,7 @@ const ToolMetadata = {
     Varnish: {
         icon: 'varnish.png',
         url: 'https://www.varnish-cache.org/',
-        priority: 1.5,
+        priority: 2.0,
     },
     IIS: {
         icon: 'iis.png',
@@ -787,7 +787,7 @@ const ToolMetadata = {
     },
 };
 
-const KnownHeaders = {
+export const KnownHeaders = {
     'x-powered-by': {
         'Express.js': /Express/,
         PHP: /PHP\/?(.*)/,

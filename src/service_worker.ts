@@ -1,3 +1,5 @@
+import { ToolMetadata, KnownHeaders } from './tool-metadata';
+
 class Background {
     /**
      * All of the collected results for all of the tabs
@@ -7,8 +9,9 @@ class Background {
     constructor() {
         // collect apps from header information:
         chrome.webRequest.onHeadersReceived.addListener(
-            details => {
+            (details) => {
                 var appsFound = this.headerDetector(details.responseHeaders);
+                // Ensure the tab results exist
                 this.allCollectedTabResults[details.tabId] = this.allCollectedTabResults[details.tabId] || {};
                 this.allCollectedTabResults[details.tabId]['headers'] = appsFound;
             },
@@ -19,7 +22,7 @@ class Background {
             ['responseHeaders']
         );
 
-        chrome.tabs.onRemoved.addListener(tabId => {
+        chrome.tabs.onRemoved.addListener((tabId) => {
             // free memory
             delete this.allCollectedTabResults[tabId];
         });
@@ -29,20 +32,18 @@ class Background {
          */
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             if (request.msg == 'result') {
-                // console.log('results ready in bg!');
                 return this.resultReceived(request, sender, sendResponse);
             } else if (request.msg == 'get') {
-                // console.log('received a request for data!');
                 return this.getReceived(request, sender, sendResponse);
             } else {
-                console.error('unkown message received in bg thread',request,sender);
+                console.error('unknown message received in sw thread', request, sender);
             }
         });
     }
 
     // Scans through the headers finding matches
     headerDetector(headers) {
-        var appsFound = [];
+        const appsFound = [];
 
         // loop through all the headers received
         for (var i = headers.length - 1; i >= 0; i--) {
@@ -53,7 +54,7 @@ class Background {
             for (var app in apps) {
                 var matches = headers[i].value.match(apps[app]);
                 if (matches) {
-                    var version = matches[1] || -1;
+                    var version = matches[1] || 'found';
                     appsFound[app] = version;
                 }
             }
@@ -65,7 +66,7 @@ class Background {
     /**
      * Handle results from a tab
      */
-    resultReceived(request, sender, sendResponse) {
+    async resultReceived(request, sender, sendResponse) {
         if (!this.allCollectedTabResults[sender.tab.id]) {
             this.allCollectedTabResults[sender.tab.id] = {};
         }
@@ -74,53 +75,13 @@ class Background {
 
         // Sometimes we don't have headers, that's okay
         if (thisTab) {
-            // console.log('apps come from request:',request.detail.apps);
             thisTab['apps'] = request.detail.apps;
         } else {
             thisTab['headers'] = [];
             thisTab['apps'] = request.detail.apps;
         }
 
-        // Report on Angular, if the user wanted us to
-        chrome.storage.sync.get(
-            {
-                optin: false,
-            },
-            function(items) {
-                // Only send if the user is opted in, the site has Angular, and we haven't already sent data.
-                if (
-                    items.optin &&
-                    (request.detail.apps.Angular || request.detail.apps.AngularJS) &&
-                    !sessionStorage[host] &&
-                    host != 'localhost'
-                ) {
-                    const data = {};
-
-                    sessionStorage[host] = true;
-
-                    let type = request.detail.apps.Angular ? 'angular' : 'angularjs';
-                    let version = request.detail.apps.Angular
-                        ? request.detail.apps.Angular.replace(/\./g, '-')
-                        : request.detail.apps.AngularJS.replace(/\./g, '-');
-
-                    data[version] = new Date().toISOString().substr(0, 10);
-                    data['host'] = host;
-                    $.ajax(
-                        'https://inspector-b2058.firebaseio.com/sites/' +
-                            host.replace(/\./g, '-') +
-                            '/' +
-                            type +
-                            '.json',
-                        {
-                            method: 'PATCH',
-                            data: JSON.stringify(data),
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                        }
-                    );
-                }
-            }
-        );
+        this.reportIfAngularAndOptedIn(request, host);
 
         // load in any apps we discovered from headers:
         for (let header in thisTab['headers']) {
@@ -130,6 +91,7 @@ class Background {
         // change the tab icon
         let mainApp = null;
 
+        // Find the highest priority app to show on icon
         for (let app in request.detail.apps) {
             if (mainApp === null) {
                 mainApp = app;
@@ -137,7 +99,7 @@ class Background {
             }
 
             if (ToolMetadata[app] && ToolMetadata[app].priority) {
-                if (!ToolMetadata[mainApp].priority) {
+                if (!ToolMetadata[mainApp] || !ToolMetadata[mainApp].priority) {
                     mainApp = app;
                 } else if (ToolMetadata[mainApp].priority > ToolMetadata[app].priority) {
                     mainApp = app;
@@ -150,16 +112,16 @@ class Background {
             // lazy bug
             var appTitle = mainAppInfo.title ? mainAppInfo.title : mainApp;
 
-            if (request.detail.apps[mainApp] != '-1') {
+            if (request.detail.apps[mainApp] != 'found') {
                 appTitle = mainApp + ' ' + request.detail.apps[mainApp];
             }
 
             try {
-                chrome.pageAction.setIcon({
+                chrome.action.setIcon({
                     tabId: sender.tab.id,
-                    path: 'apps/' + mainAppInfo.icon,
+                    path: '/apps/' + mainAppInfo.icon,
                 });
-                chrome.pageAction.setTitle({ tabId: sender.tab.id, title: appTitle });
+                chrome.action.setTitle({ tabId: sender.tab.id, title: appTitle });
             } catch (ex) {
                 // Tab didn't exist anymore?
                 console.error('Error updating pageaction icon', ex);
@@ -173,13 +135,52 @@ class Background {
         }
     }
 
+    async reportIfAngularAndOptedIn(request, host) {
+        // Report on Angular, if the user wanted us to
+        const optin = (
+            await chrome.storage.sync.get({
+                optin: false,
+            })
+        )['optin'];
+        // Only send if the user is opted in, the site has Angular, and we haven't already sent data.
+
+        // Check storage.local to see if we've seen this host before.
+        const hostValue = (await chrome.storage.local.get([host]))[host];
+
+        if (
+            !optin ||
+            !(request.detail.apps.Angular || request.detail.apps.AngularJS) ||
+            hostValue ||
+            host == 'localhost'
+        ) {
+            // Do nothing, not appropriate
+            return;
+        }
+        const data = {};
+
+        const propertiesToSet = {};
+        propertiesToSet[host] = true;
+        chrome.storage.local.set(propertiesToSet);
+
+        let type = request.detail.apps.Angular ? 'angular' : 'angularjs';
+        let version = request.detail.apps.Angular
+            ? request.detail.apps.Angular.replace(/\./g, '-')
+            : request.detail.apps.AngularJS.replace(/\./g, '-');
+
+        data[version] = new Date().toISOString().substring(0, 10);
+        data['host'] = host;
+        fetch('https://inspector-b2058.firebaseio.com/sites/' + host.replace(/\./g, '-') + '/' + type + '.json', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify(data),
+        });
+    }
+
     /**
      *  Request for 'get' comes from the popup page, asking for the list of apps
      */
     getReceived(request, sender, sendResponse) {
         var apps = this.allCollectedTabResults[request.tab];
-        // console.log('sending response to popop for',request.tab,apps);
-        // console.log(this.allCollectedTabResults);
         sendResponse(apps);
     }
 }
