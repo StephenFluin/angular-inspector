@@ -7,6 +7,11 @@
         "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4"
     },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stephenfluin/angular-inspector/"
+    },
     "devDependencies": {},
     "scripts": {
         "build": "webpack build && cd src && rm -rf ../ai.zip && zip -r ../ai.zip ./ --exclude=*.ts",
