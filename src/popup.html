@@ -1,7 +1,21 @@
-<style type="text/css">
-    #app_list a {
-        margin-right: 4px;
-    }
-</style>
-<div id="app_list">Detection likely blocked by this page.</div>
-<script src="dist/popup.js"></script>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Angular Inspector</title>
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+    <body>
+        <header>
+            <img src="icon32.png" width="20" height="20" alt="" />
+            <div class="heading">
+                <h1 id="host">Angular Inspector</h1>
+                <p id="summary"></p>
+            </div>
+            <button id="rescan" type="button" title="Scan this page again" hidden>Rescan</button>
+        </header>
+        <main id="results" aria-live="polite"></main>
+        <footer><span id="version"></span><a href="options.html" target="_blank">Options</a></footer>
+        <script src="dist/popup.js"></script>
+    </body>
+</html>

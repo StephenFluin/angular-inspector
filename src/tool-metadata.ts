@@ -1,806 +1,465 @@
-export const ToolMetadata = {
-    Tumblr: {
-        icon: 'Tumblr.png',
-        url: 'http://tumblr.com',
-        priority: 0.9,
-    },
-    TypePad: {
-        icon: 'TypePad.png',
-        url: 'http://typepad.com',
-        priority: 0.9,
-    },
-    Blogger: {
-        icon: 'Blogger.png',
-        url: 'http://blogger.com',
-        priority: 0.9,
-    },
-    'Express.js': {
-        icon: 'webs.png',
-        url: 'http://expressjs.com/',
-        priority: 3,
-    },
-    Webs: {
-        icon: 'webs.png',
-        url: 'http://www.webs.com/',
-        priority: 0.9,
-    },
-    Weebly: {
-        icon: 'weebly.png',
-        url: 'http://www.weebly.com/',
-        priority: 0.9,
-    },
-    Webnode: {
-        icon: 'webnode.png',
-        url: 'http://www.webnode.com/',
-        priority: 0.9,
-    },
-    Jimdo: {
-        icon: 'jimdo.png',
-        url: 'http://www.jimdo.com',
-        priority: 0.9,
-    },
-    Jigsy: {
-        icon: 'jigsy.png',
-        url: 'http://jigsy.com',
-        priority: 0.9,
-    },
-    Yola: {
-        icon: 'yola.png',
-        url: 'http://www.yola.com/',
-        priority: 0.9,
-    },
+/**
+ * Display information for every tool the extension can detect. Keys are the tool ids emitted by the
+ * detector (detector.ts) and the header rules (lib/headers.ts).
+ *
+ * - `icon` is a file under src/apps/. When omitted and `brand` is set, the icon is the SVG generated from
+ *   the Simple Icons slug `brand` by `npm run icons` (src/apps/brands/<brand>.svg).
+ * - `priority` decides which tool is shown as the toolbar icon (lowest wins). Defaults to the category's.
+ */
 
-    // ==== cms or framework ====
-    vBulletin: {
-        icon: 'vBulletin.png',
-        url: 'http://www.vbulletin.com/',
-        priority: 1,
-    },
-    SMF: {
-        title: 'Simple Machines Forum',
-        icon: 'SMF.png',
-        url: 'http://www.simplemachines.org/',
-        priority: 1,
-    },
-    phpBB: {
-        icon: 'phpBB.png',
-        url: 'http://www.phpbb.com',
-        priority: 1,
-    },
-    IPB: {
-        title: 'Invision Power Board',
-        icon: 'IPB.png',
-        url: 'http://invisionpower.com/',
-        priority: 1,
-    },
-    miniBB: {
-        icon: 'miniBB.png',
-        url: 'http://www.minibb.com/',
-        priority: 1,
-    },
-    MyBB: {
-        icon: 'mybb.png',
-        url: 'http://www.mybb.com/',
-        priority: 1,
-    },
-    XenForo: {
-        icon: 'xenforo.png',
-        url: 'http://xenforo.com',
-        priority: 1,
-    },
+export type Category =
+    | 'Frameworks'
+    | 'Meta-frameworks & SSR'
+    | 'CMS & platforms'
+    | 'JavaScript libraries'
+    | 'UI & styling'
+    | 'Build tools'
+    | 'Analytics & monitoring'
+    | 'Widgets & services'
+    | 'Advertising'
+    | 'Server-side'
+    | 'Hosting & CDN'
+    | 'Network';
 
-    Drupal: {
-        icon: 'Drupal.png',
-        url: 'http://drupal.org',
-        priority: 1,
-    },
-    Ubercart: {
-        icon: 'Ubercart.png',
-        url: 'http://www.ubercart.org/',
-        priority: 0.9,
-    },
+export interface ToolInfo {
+    title?: string;
+    icon?: string;
+    brand?: string;
+    url: string;
+    priority?: number;
+}
 
-    AlphaCMS: {
-        icon: 'alphacms.png',
-        url: 'http://www.mego.com.vn',
-        priority: 1,
-    },
-    TomatoCMS: {
-        icon: 'tomatocms.png',
-        url: 'http://www.tomatocms.com/',
-        priority: 1,
-    },
+export interface Tool extends ToolInfo {
+    id: string;
+    title: string;
+    category: Category;
+    priority: number;
+}
 
-    WordPress: {
-        icon: 'WordPress.png',
-        url: 'http://wordpress.org',
-        priority: 1,
-    },
-    WPML: {
-        icon: 'WPML.png',
-        url: 'http://wpml.org/',
-        priority: 1.1,
-    },
+/** Display order of categories in the popup, and the default toolbar priority of their tools. */
+export const Categories: { name: Category; priority: number }[] = [
+    { name: 'Frameworks', priority: 1 },
+    { name: 'Meta-frameworks & SSR', priority: 0.9 },
+    { name: 'CMS & platforms', priority: 1.2 },
+    { name: 'JavaScript libraries', priority: 2 },
+    { name: 'UI & styling', priority: 3 },
+    { name: 'Build tools', priority: 3.5 },
+    { name: 'Server-side', priority: 3.5 },
+    { name: 'Analytics & monitoring', priority: 4 },
+    { name: 'Widgets & services', priority: 4 },
+    { name: 'Hosting & CDN', priority: 4.5 },
+    { name: 'Advertising', priority: 5 },
+    { name: 'Network', priority: 6 },
+];
 
-    bbPress: {
-        icon: 'bbPress.png',
-        url: 'http://bbpress.org',
-        priority: 1,
-    },
-    'Movable Type': {
-        icon: 'MovableType.png',
-        url: 'http://www.movabletype.org/',
-        priority: 1,
-    },
-    Serendipity: {
-        icon: 'Serendipity.png',
-        url: 'http://www.s9y.org/',
-        priority: 1,
-    },
-    concrete5: {
-        icon: 'concrete5.gif',
-        url: 'http://www.concrete5.org',
-        priority: 1,
-    },
-
-    MediaWiki: {
-        icon: 'MediaWiki.png',
-        url: 'http://www.mediawiki.org/',
-        priority: 1,
-    },
-    DokuWiki: {
-        icon: 'DokuWiki.png',
-        url: 'http://www.dokuwiki.org/',
-        priority: 1,
-    },
-
-    OpenACS: {
-        icon: 'openacs.png',
-        url: 'http://openacs.org',
-        priority: 1,
-    },
-
-    Joomla: {
-        icon: 'Joomla.png',
-        url: 'http://joomla.org',
-        priority: 1,
-    },
-    Magento: {
-        icon: 'Magento.png',
-        url: 'http://www.magentocommerce.com/',
-        priority: 1,
-    },
-    XOOPS: {
-        icon: 'XOOPS.png',
-        url: 'http://xoops.org',
-        priority: 1,
-    },
-    Plone: {
-        icon: 'Plone.png',
-        url: 'http://plone.org/',
-        priority: 1,
-    },
-    CMSMadeSimple: {
-        title: 'CMS Made Simple',
-        icon: 'CMSMadeSimple.png',
-        url: 'http://www.cmsmadesimple.org/',
-        priority: 1,
-    },
-    SilverStripe: {
-        icon: 'SilverStripe.png',
-        url: 'http://silverstripe.org',
-        priority: 1,
-    },
-    MODx: {
-        icon: 'MODx.png',
-        url: 'http://modxcms.com/',
-        priority: 1,
-    },
-    'Amiro.CMS': {
-        icon: 'Amiro.CMS.png',
-        url: 'http://www.amirocms.com/',
-        priority: 1,
-    },
-    JaliosJCMS: {
-        icon: 'JaliosJCMS.png',
-        url: 'http://www.jalios.com',
-        priority: 1,
-        title: 'Jalios JCMS',
-    },
-    Koobi: {
-        icon: 'Koobi.png',
-        url: 'http://www.dream4.de/cms/',
-        priority: 1,
-    },
-    Liferay: {
-        icon: 'LifeRay.png',
-        url: 'http://www.liferay.com',
-        priority: 1,
-    },
-    TYPO3: {
-        icon: 'TYPO3.png',
-        url: 'http://typo3.org/',
-        priority: 1,
-    },
-    Contao: {
-        icon: 'contao.png',
-        url: 'http://www.contao.org',
-        priority: 1,
-    },
-    Fatwire: {
-        icon: 'Fatwire.png',
-        url: 'http://www.fatwire.com',
-        priority: 1,
-    },
-    'PHP-Fusion': {
-        icon: 'PHP-Fusion.png',
-        url: 'http://php-fusion.co.uk/',
-        priority: 1,
-    },
-    'PHP-Nuke': {
-        icon: 'PHP-Nuke.png',
-        url: 'http://phpnuke.org/',
-        priority: 1,
-    },
-    WebGUI: {
-        icon: 'WebGUI.png',
-        url: 'http://www.webgui.org/',
-        priority: 1,
-    },
-    'ez Publish': {
-        icon: 'eZ.png',
-        url: 'http://ez.no/',
-        priority: 1,
-    },
-    BIGACE: {
-        icon: 'BIGACE.png',
-        url: 'http://www.bigace.de/',
-        priority: 1,
-    },
-    OpenCMS: {
-        icon: 'opencms.png',
-        url: 'http://www.opencms.org/',
-        priority: 1,
-    },
-    '1c-bitrix': {
-        icon: '1c-bitrix.png',
-        url: 'http://www.1c-bitrix.ru/',
-        priority: 1,
-    },
-    MojoMotor: {
-        icon: 'mojomotor.png',
-        url: '	http://mojomotor.com',
-        priority: 1,
-    },
-    GetSimple: {
-        icon: 'getsimple.png',
-        url: '	http://get-simple.info/',
-        priority: 1,
-    },
-    Perch: {
-        // not yet supported
-        icon: 'perch.png',
-        url: 'http://grabaperch.com/',
-        priority: 1,
-    },
-    DataLifeEngine: {
-        title: 'DataLife Engine',
-        icon: 'datalife.png',
-        url: 'http://dle-news.ru/',
-        priority: 1,
-    },
-
-    Elgg: {
-        icon: 'Elgg.png',
-        url: 'http://www.elgg.org/',
-        priority: 1,
-    },
-
-    DotNetNuke: {
-        icon: 'DotNetNuke.png',
-        url: 'http://www.dotnetnuke.com/',
-        priority: 1,
-    },
-    Sitefinity: {
-        icon: 'Sitefinity.png',
-        url: 'http://www.sitefinity.com/',
-        priority: 1,
-    },
-    SharePoint: {
-        icon: 'SharePoint.png',
-        url: 'http://sharepoint.microsoft.com',
-        priority: 1,
-        title: 'Microsoft SharePoint',
-    },
-
-    ZenPhoto: {
-        icon: 'ZenPhoto.png',
-        url: 'http://www.zenphoto.org',
-        priority: 1,
-    },
-    Gallery2: {
-        icon: 'Gallery2.png',
-        url: 'http://gallery.menalto.com/',
-        priority: 1,
-    },
-
-    Avactis: {
-        icon: 'avactis.png',
-        url: 'http://www.avactis.com',
-        priority: 1,
-    },
-    PrestaShop: {
-        icon: 'PrestaShop.png',
-        url: 'http://www.prestashop.com/',
-        priority: 1,
-    },
-    Prostores: {
-        icon: 'prostores.png',
-        url: 'http://www.prostores.com',
-        priority: 1,
-    },
-    ZenCart: {
-        icon: 'zencart.png',
-        url: 'http://www.zen-cart.com',
-        priority: 1,
-    },
-    ErainCart: {
-        icon: 'eraincart.png',
-        url: 'http://eraincart.com',
-        priority: 1,
-    },
-    Volusion: {
-        icon: 'volusion.png',
-        url: 'http://www.volusion.com',
-        priority: 1,
-    },
-    osCommerce: {
-        icon: 'osCommerce.png',
-        url: 'http://www.oscommerce.com',
-        priority: 1,
-    },
-    OpenCart: {
-        icon: 'opencart.png',
-        url: 'http://www.opencart.com',
-        priority: 1,
-    },
-
-    Moodle: {
-        icon: 'moodle.png',
-        url: 'http://moodle.org',
-        priority: 1,
-    },
-    SugarCRM: {
-        icon: 'sugarcrm.png',
-        url: 'http://www.sugarcrm.com',
-        priority: 1,
-    },
-    PivotX: {
-        icon: 'pivotx.png',
-        url: 'http://pivotx.net',
-        priority: 1,
-    },
-
-    Shibboleth: {
-        icon: 'shibboleth.png',
-        url: 'http://shibboleth.internet2.edu/',
-        priority: 1,
-    },
-    Alfresco: {
-        icon: 'Alfresco.png',
-        url: 'http://www.alfresco.com',
-        priority: 1,
-    },
-
-    ClanSphere: {
-        icon: 'ClanSphere.png',
-        url: 'http://csphere.eu',
-        priority: 1,
-    },
-
-    // ==== js framework ====
-    jQuery: {
-        icon: 'jQuery.png',
-        url: 'http://jquery.com',
-        priority: 2,
-    },
-    'jQuery UI': {
-        icon: 'jquery_ui.png',
-        url: 'http://jqueryui.com/',
-        priority: 1.9,
-    },
-    ExtJS: {
-        icon: 'ExtJS.png',
-        url: 'http://www.extjs.com/',
-        priority: 2,
-    },
-    Prototype: {
-        icon: 'Prototype.png',
-        url: 'http://www.prototypejs.org/',
-        priority: 2,
-    },
+const Frameworks: Record<string, ToolInfo> = {
+    Angular: { icon: 'angular.png', url: 'https://angular.dev/', priority: 0.5 },
+    AngularJS: { icon: 'AngularJS.png', url: 'https://angularjs.org/', priority: 0.6 },
+    React: { icon: 'react.png', url: 'https://react.dev/' },
+    Vue: { title: 'Vue.js', brand: 'vuedotjs', url: 'https://vuejs.org/' },
+    Svelte: { brand: 'svelte', url: 'https://svelte.dev/' },
+    Solid: { title: 'SolidJS', brand: 'solid', url: 'https://www.solidjs.com/' },
+    Preact: { brand: 'preact', url: 'https://preactjs.com/' },
+    Qwik: { brand: 'qwik', url: 'https://qwik.dev/' },
+    Lit: { brand: 'lit', url: 'https://lit.dev/' },
+    Ember: { title: 'Ember.js', icon: 'ember.png', url: 'https://emberjs.com/' },
+    'Alpine.js': { brand: 'alpinedotjs', url: 'https://alpinejs.dev/' },
+    htmx: { brand: 'htmx', url: 'https://htmx.org/' },
+    Stimulus: { brand: 'stimulus', url: 'https://stimulus.hotwired.dev/' },
+    'Hotwire Turbo': { brand: 'hotwire', url: 'https://turbo.hotwired.dev/' },
+    Livewire: { brand: 'livewire', url: 'https://livewire.laravel.com/' },
+    Inertia: { title: 'Inertia.js', brand: 'inertia', url: 'https://inertiajs.com/' },
+    Flutter: { title: 'Flutter Web', brand: 'flutter', url: 'https://flutter.dev/' },
+    Blazor: { brand: 'blazor', url: 'https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor' },
+    Elm: { brand: 'elm', url: 'https://elm-lang.org/' },
+    Polymer: { icon: 'polymer.png', url: 'https://polymer-library.polymer-project.org/', priority: 1.4 },
+    'Backbone.js': { icon: 'Backbone.png', url: 'https://backbonejs.org/', priority: 1.9 },
+    Marionette: { title: 'Marionette.js', icon: 'marionette.png', url: 'https://marionettejs.com/', priority: 1.8 },
+    Knockout: { title: 'Knockout.js', url: 'https://knockoutjs.com/' },
+    Meteor: { icon: 'meteor-0.png', url: 'https://www.meteor.com/' },
+    Spine: { icon: 'spine.png', url: 'https://spine.github.io/', priority: 1.9 },
+    Cappuccino: { icon: 'cappuccino.png', url: 'https://www.cappuccino.dev/', priority: 2 },
+    ExtJS: { title: 'Ext JS', icon: 'ExtJS.png', url: 'https://www.sencha.com/products/extjs/', priority: 2 },
     Closure: {
+        title: 'Closure Library',
         icon: 'Closure.png',
-        url: 'http://code.google.com/closure/',
+        url: 'https://github.com/google/closure-library',
         priority: 2,
     },
-    MooTools: {
-        icon: 'MooTools.png',
-        url: 'http://mootools.net/',
-        priority: 2,
+    YUI: { icon: 'YUI.png', url: 'https://yuilibrary.com/', priority: 2 },
+    Dojo: { icon: 'dojo-0.png', url: 'https://dojotoolkit.org/', priority: 2 },
+    JsAction: { title: 'JSAction', icon: 'google.png', url: 'https://github.com/google/jsaction', priority: 2 },
+};
+
+const MetaFrameworks: Record<string, ToolInfo> = {
+    'Angular SSR': { title: 'Angular SSR', icon: 'angular.png', url: 'https://angular.dev/guide/ssr', priority: 0.55 },
+    'Angular Hydration': { icon: 'angular.png', url: 'https://angular.dev/guide/hydration', priority: 0.55 },
+    Analog: { url: 'https://analogjs.org/' },
+    'Next.js': { brand: 'nextdotjs', url: 'https://nextjs.org/' },
+    Nuxt: { brand: 'nuxt', url: 'https://nuxt.com/' },
+    SvelteKit: { brand: 'svelte', url: 'https://svelte.dev/docs/kit' },
+    Remix: { brand: 'remix', url: 'https://remix.run/' },
+    'React Router': { brand: 'reactrouter', url: 'https://reactrouter.com/' },
+    Astro: { brand: 'astro', url: 'https://astro.build/' },
+    Gatsby: { brand: 'gatsby', url: 'https://www.gatsbyjs.com/' },
+    SolidStart: { brand: 'solid', url: 'https://start.solidjs.com/' },
+    Docusaurus: { brand: 'docusaurus', url: 'https://docusaurus.io/' },
+    VitePress: { brand: 'vitepress', url: 'https://vitepress.dev/' },
+    Hugo: { brand: 'hugo', url: 'https://gohugo.io/' },
+    Jekyll: { brand: 'jekyll', url: 'https://jekyllrb.com/' },
+    Eleventy: { brand: 'eleventy', url: 'https://www.11ty.dev/' },
+    Hexo: { brand: 'hexo', url: 'https://hexo.io/' },
+    MkDocs: { brand: 'materialformkdocs', url: 'https://www.mkdocs.org/' },
+};
+
+const Platforms: Record<string, ToolInfo> = {
+    WordPress: { icon: 'WordPress.png', url: 'https://wordpress.org/' },
+    WooCommerce: { brand: 'woocommerce', url: 'https://woocommerce.com/', priority: 1.1 },
+    Shopify: { brand: 'shopify', url: 'https://www.shopify.com/' },
+    Wix: { brand: 'wix', url: 'https://www.wix.com/' },
+    Squarespace: { icon: 'squarespace.png', url: 'https://www.squarespace.com/' },
+    Webflow: { brand: 'webflow', url: 'https://webflow.com/' },
+    Framer: { brand: 'framer', url: 'https://www.framer.com/' },
+    Ghost: { brand: 'ghost', url: 'https://ghost.org/' },
+    Drupal: { icon: 'Drupal-0.png', url: 'https://www.drupal.org/' },
+    Joomla: { icon: 'Joomla.png', url: 'https://www.joomla.org/' },
+    Magento: { icon: 'Magento.png', url: 'https://business.adobe.com/products/magento/magento-commerce.html' },
+    BigCommerce: { brand: 'bigcommerce', url: 'https://www.bigcommerce.com/' },
+    'HubSpot CMS': { icon: 'hubspot.png', url: 'https://www.hubspot.com/products/cms' },
+    Discourse: { brand: 'discourse', url: 'https://www.discourse.org/' },
+    Tumblr: { icon: 'Tumblr.png', url: 'https://www.tumblr.com/', priority: 0.9 },
+    TypePad: { icon: 'TypePad-0.png', url: 'https://www.typepad.com/', priority: 0.9 },
+    Blogger: { icon: 'Blogger-0.png', url: 'https://www.blogger.com/', priority: 0.9 },
+    Webs: { icon: 'webs.png', url: 'https://www.webs.com/', priority: 0.9 },
+    Weebly: { icon: 'weebly.png', url: 'https://www.weebly.com/', priority: 0.9 },
+    Webnode: { icon: 'webnode-0.png', url: 'https://www.webnode.com/', priority: 0.9 },
+    Jimdo: { icon: 'jimdo.png', url: 'https://www.jimdo.com/', priority: 0.9 },
+    Jigsy: { icon: 'jigsy.png', url: 'https://www.jigsy.com/', priority: 0.9 },
+    Yola: { icon: 'yola.png', url: 'https://www.yola.com/', priority: 0.9 },
+    vBulletin: { icon: 'vBulletin-0.png', url: 'https://www.vbulletin.com/' },
+    SMF: { title: 'Simple Machines Forum', icon: 'SMF.png', url: 'https://www.simplemachines.org/' },
+    phpBB: { icon: 'phpBB.png', url: 'https://www.phpbb.com/' },
+    IPB: { title: 'Invision Community', icon: 'IPB.png', url: 'https://invisioncommunity.com/' },
+    miniBB: { icon: 'miniBB.png', url: 'https://www.minibb.com/' },
+    MyBB: { icon: 'mybb-0.png', url: 'https://mybb.com/' },
+    XenForo: { icon: 'xenforo.png', url: 'https://xenforo.com/' },
+    Ubercart: { icon: 'Ubercart.png', url: 'https://www.drupal.org/project/ubercart', priority: 0.9 },
+    AlphaCMS: { icon: 'alphacms.png', url: 'http://www.mego.com.vn/' },
+    TomatoCMS: { icon: 'tomatocms.png', url: 'http://www.tomatocms.com/' },
+    WPML: { icon: 'WPML.png', url: 'https://wpml.org/', priority: 1.3 },
+    bbPress: { icon: 'bbPress.png', url: 'https://bbpress.org/' },
+    'Movable Type': { icon: 'MovableType.png', url: 'https://www.movabletype.org/' },
+    Serendipity: { icon: 'Serendipity.png', url: 'https://docs.s9y.org/' },
+    concrete5: { title: 'Concrete CMS', icon: 'concrete5.gif', url: 'https://www.concretecms.com/' },
+    MediaWiki: { icon: 'MediaWiki.png', url: 'https://www.mediawiki.org/' },
+    DokuWiki: { icon: 'DokuWiki-0.png', url: 'https://www.dokuwiki.org/' },
+    OpenACS: { icon: 'openacs.png', url: 'https://openacs.org/' },
+    XOOPS: { icon: 'XOOPS.png', url: 'https://xoops.org/' },
+    Plone: { icon: 'Plone-0.png', url: 'https://plone.org/' },
+    CMSMadeSimple: { title: 'CMS Made Simple', icon: 'CMSMadeSimple.png', url: 'https://www.cmsmadesimple.org/' },
+    SilverStripe: { title: 'Silverstripe CMS', icon: 'SilverStripe.png', url: 'https://www.silverstripe.org/' },
+    MODx: { title: 'MODX', icon: 'MODx.png', url: 'https://modx.com/' },
+    'Amiro.CMS': { icon: 'Amiro.CMS.png', url: 'https://www.amirocms.com/' },
+    JaliosJCMS: { title: 'Jalios JCMS', icon: 'JaliosJCMS.png', url: 'https://www.jalios.com/' },
+    Koobi: { icon: 'Koobi-0.png', url: 'http://www.dream4.de/cms/' },
+    Liferay: { icon: 'LifeRay.png', url: 'https://www.liferay.com/' },
+    TYPO3: { icon: 'TYPO3.png', url: 'https://typo3.org/' },
+    Contao: { icon: 'contao.png', url: 'https://contao.org/' },
+    Fatwire: { icon: 'Fatwire.png', url: 'https://www.oracle.com/webcenter/' },
+    'PHP-Fusion': { icon: 'PHP-Fusion-0.png', url: 'https://phpfusion.com/' },
+    'PHP-Nuke': { icon: 'PHP-Nuke.png', url: 'https://phpnuke.org/' },
+    WebGUI: { icon: 'WebGUI.png', url: 'https://github.com/plainblack/webgui' },
+    'ez Publish': { title: 'eZ Publish', icon: 'eZ.png', url: 'https://ez.no/' },
+    BIGACE: { icon: 'BIGACE.png', url: 'https://www.bigace.de/' },
+    OpenCMS: { title: 'OpenCms', icon: 'opencms.png', url: 'https://www.opencms.org/' },
+    '1c-bitrix': { title: '1C-Bitrix', icon: '1c-bitrix.png', url: 'https://www.1c-bitrix.ru/' },
+    MojoMotor: { icon: 'mojomotor.png', url: 'https://github.com/EllisLab/MojoMotor' },
+    GetSimple: { title: 'GetSimple CMS', icon: 'getsimple.png', url: 'https://get-simple.info/' },
+    DataLifeEngine: { title: 'DataLife Engine', icon: 'datalife-0.png', url: 'https://dle-news.ru/' },
+    Elgg: { icon: 'Elgg.png', url: 'https://elgg.org/' },
+    DotNetNuke: { title: 'DNN', icon: 'DotNetNuke-0.png', url: 'https://www.dnnsoftware.com/' },
+    Sitefinity: { icon: 'Sitefinity-0.png', url: 'https://www.progress.com/sitefinity-cms' },
+    SharePoint: {
+        title: 'Microsoft SharePoint',
+        icon: 'SharePoint.png',
+        url: 'https://www.microsoft.com/microsoft-365/sharepoint',
     },
-    Dojo: {
-        icon: 'dojo.png',
-        url: 'http://www.dojotoolkit.org/',
-        priority: 2,
-    },
-    'script.aculo.us': {
-        icon: 'script.aculo.us.png',
-        url: 'http://script.aculo.us/',
-        priority: 1.9,
-    },
-    YUI: {
-        icon: 'YUI.png',
-        url: 'http://developer.yahoo.com/yui/',
-        priority: 2,
-    },
-    Cappuccino: {
-        icon: 'cappuccino.png',
-        url: 'http://cappuccino.org/',
-        priority: 2,
-    },
-    RightJS: {
-        icon: 'rightjs.png',
-        url: 'http://RightJS.org/',
-        priority: 2,
-    },
-    OpenLayers: {
-        icon: 'OpenLayers.png',
-        url: 'http://openlayers.org/',
-        priority: 1.9,
-    },
-    Spine: {
-        icon: 'spine.png',
-        url: 'http://spinejs.com',
-        priority: 1.9,
-    },
-    AngularJS: {
-        icon: 'AngularJS.png',
-        url: 'http://angularjs.org/',
-        priority: 1.0,
-    },
-    Angular: {
+    ZenPhoto: { icon: 'ZenPhoto.png', url: 'https://www.zenphoto.org/' },
+    Gallery2: { icon: 'Gallery2.png', url: 'http://galleryproject.org/' },
+    Avactis: { icon: 'avactis.png', url: 'http://www.avactis.com/' },
+    PrestaShop: { icon: 'PrestaShop.png', url: 'https://www.prestashop.com/' },
+    Prostores: { icon: 'prostores.png', url: 'http://www.prostores.com/' },
+    ZenCart: { title: 'Zen Cart', icon: 'zencart.png', url: 'https://www.zen-cart.com/' },
+    ErainCart: { icon: 'eraincart.png', url: 'http://eraincart.com/' },
+    Volusion: { icon: 'volusion.png', url: 'https://www.volusion.com/' },
+    osCommerce: { icon: 'osCommerce.png', url: 'https://www.oscommerce.com/' },
+    OpenCart: { icon: 'opencart.png', url: 'https://www.opencart.com/' },
+    Moodle: { icon: 'moodle.png', url: 'https://moodle.org/' },
+    SugarCRM: { icon: 'sugarcrm.png', url: 'https://www.sugarcrm.com/' },
+    PivotX: { icon: 'pivotx.png', url: 'https://pivotx.net/' },
+    Shibboleth: { icon: 'shibboleth.png', url: 'https://www.shibboleth.net/' },
+    Alfresco: { icon: 'Alfresco.png', url: 'https://www.hyland.com/en/products/alfresco-platform' },
+    ClanSphere: { icon: 'ClanSphere.png', url: 'https://www.csphere.eu/' },
+    Ning: { icon: 'ning.png', url: 'https://www.ning.com/' },
+    ektron: { title: 'Ektron', icon: 'ektron.png', url: 'https://www.optimizely.com/' },
+    'Mura CMS': { icon: 'muracms.png', url: 'https://www.getmura.com/' },
+    'Tiki Wiki CMS Groupware': { icon: 'TikiWikiCms.png', url: 'https://tiki.org/' },
+    LiveStreet: { title: 'LiveStreet CMS', icon: 'LiveStreetCms.png', url: 'https://livestreetcms.com/' },
+};
+
+const Libraries: Record<string, ToolInfo> = {
+    jQuery: { icon: 'jQuery.png', url: 'https://jquery.com/' },
+    'jQuery UI': { icon: 'jquery_ui.png', url: 'https://jqueryui.com/', priority: 1.9 },
+    'jQuery Migrate': { icon: 'jQuery.png', url: 'https://github.com/jquery/jquery-migrate' },
+    'Zone.js': {
         icon: 'angular.png',
-        url: 'https://angular.io/',
-        priority: 1.0,
+        url: 'https://github.com/angular/angular/tree/main/packages/zone.js',
+        priority: 2.5,
     },
-    Polymer: {
-        icon: 'polymer.png',
-        url: 'https://www.polymer-project.org',
-        priority: 1.4,
+    Lodash: { brand: 'lodash', url: 'https://lodash.com/' },
+    'Underscore.js': { icon: 'Underscore.png', url: 'https://underscorejs.org/', priority: 2.9 },
+    D3: { brand: 'd3', url: 'https://d3js.org/' },
+    'Three.js': { brand: 'threedotjs', url: 'https://threejs.org/' },
+    'Babylon.js': { brand: 'babylondotjs', url: 'https://www.babylonjs.com/' },
+    PixiJS: { url: 'https://pixijs.com/' },
+    GSAP: { brand: 'greensock', url: 'https://gsap.com/' },
+    Lottie: { brand: 'lottiefiles', url: 'https://airbnb.io/lottie/' },
+    'Chart.js': { brand: 'chartdotjs', url: 'https://www.chartjs.org/' },
+    Highcharts: { url: 'https://www.highcharts.com/' },
+    Leaflet: { brand: 'leaflet', url: 'https://leafletjs.com/' },
+    'Mapbox GL JS': { brand: 'mapbox', url: 'https://docs.mapbox.com/mapbox-gl-js/' },
+    OpenLayers: { icon: 'OpenLayers.png', url: 'https://openlayers.org/', priority: 1.9 },
+    Moment: { title: 'Moment.js', url: 'https://momentjs.com/' },
+    'Day.js': { url: 'https://day.js.org/' },
+    Axios: { brand: 'axios', url: 'https://axios-http.com/' },
+    'Socket.IO': { brand: 'socketdotio', url: 'https://socket.io/' },
+    Swiper: { brand: 'swiper', url: 'https://swiperjs.com/' },
+    'core-js': { url: 'https://github.com/zloirock/core-js' },
+    'Polyfill.io': {
+        title: 'Polyfill.io (compromised CDN)',
+        url: 'https://sansec.io/research/polyfill-supply-chain-attack',
     },
-    React: {
-        icon: 'react.png',
-        url: 'https://facebook.github.io/react/',
-        priority: 1.4,
-    },
-    Zepto: {
-        icon: 'zepto.png',
-        url: 'http://zeptojs.com/',
-        priority: 1.5,
-    },
-    Raphael: {
-        icon: 'raphael.png',
-        url: 'http://raphaeljs.com/',
-        priority: 2.9,
-    },
-    Typekit: {
-        icon: 'typekit.png',
-        url: 'http://typekit.com/',
-        priority: 2.9,
-    },
-    Cufon: {
-        icon: 'cufon.png',
-        url: 'http://cufon.shoqolate.com/',
-        priority: 2.9,
-    },
-    sIFR: {
-        icon: 'sifr.gif',
-        url: 'http://www.mikeindustries.com/blog/sifr/',
-        priority: 2.9,
-    },
-    Modernizr: {
-        icon: 'modernizr.png',
-        url: 'http://www.modernizr.com/',
-        priority: 2.9,
-    },
-    Facebook: {
-        title: 'Facebook Social plugins',
-        icon: 'facebook.png',
-        url: 'http://developers.facebook.com/',
-        priority: 2.9,
-    },
-    Twitter: {
-        title: 'Twitter plugins',
-        icon: 'twitter.png',
-        url: 'http://dev.twitter.com',
-        priority: 2.9,
-    },
-    Buzz: {
-        title: 'Google Buzz Button',
-        icon: 'buzz.png',
-        url: 'http://www.google.com/buzz/stuff',
-        priority: 2.9,
-    },
-    Plus1: {
-        title: 'Google Plus 1',
-        icon: 'plus1.png',
-        url: 'http://www.google.com/+1/button/',
-        priority: 2.9,
-    },
-    AddThis: {
-        icon: 'addthis.png',
-        url: 'http://www.addthis.com',
-        priority: 2.9,
-    },
-    'Backbone.js': {
-        icon: 'Backbone.png',
-        url: 'http://documentcloud.github.com/backbone/',
-        priority: 1.9,
-    },
-    'Underscore.js': {
-        icon: 'Underscore.png',
-        url: 'http://documentcloud.github.com/underscore/',
-        priority: 2.9,
-    },
-
-    'Head JS': {
-        icon: 'headjs.gif',
-        url: 'http://headjs.com',
-        priority: 2.9,
-    },
-    'Google Loader': {
-        icon: 'google.png',
-        url: 'http://code.google.com/apis/loader',
-        priority: 2.9,
-    },
-
-    Woopra: {
-        icon: 'woopra.png',
-        url: 'http://www.woopra.com',
-        priority: 3,
-    },
-    OpenWebAnalytics: {
-        icon: 'owa.png',
-        url: 'http://www.openwebanalytics.com',
-        priority: 3,
-    },
-    'Google Analytics': {
-        icon: 'Google_Analytics.png',
-        url: 'http://www.google.com/analytics/',
-        priority: 3,
-    },
-    SiteCatalyst: {
-        icon: 'SiteCatalyst.png',
-        url: 'http://www.omniture.com',
-        priority: 3,
-    },
-    Coremetrics: {
-        icon: 'coremetrics.png',
-        url: 'http://www.coremetrics.com',
-        priority: 3,
-    },
-    Quantcast: {
-        icon: 'Quantcast.png',
-        url: 'http://www.quantcast.com/',
-        priority: 3,
-    },
-    Xiti: {
-        title: 'Xiti Tracker',
-        icon: 'xiti.png',
-        url: 'http://xiti.com/',
-        priority: 3,
-    },
-    Piwik: {
-        icon: 'Piwik.png',
-        url: 'http://piwik.org/',
-        priority: 3,
-    },
-    Clicky: {
-        icon: 'clicky.png',
-        url: 'http://getclicky.com/',
-        priority: 3,
-    },
-
-    Disqus: {
-        icon: 'Disqus.png',
-        url: 'http://disqus.com/',
-        priority: 1,
-    },
-    GetSatisfaction: {
-        icon: 'GetSatisfaction.gif',
-        url: 'http://getsatisfaction.com',
-        priority: 3,
-    },
-    Wibiya: {
-        icon: 'Wibiya.png',
-        url: 'http://wibiya.com/',
-        priority: 3,
-    },
+    Handlebars: { icon: 'handlebars.png', url: 'https://handlebarsjs.com/' },
+    Prototype: { icon: 'Prototype.png', url: 'http://prototypejs.org/' },
+    MooTools: { icon: 'MooTools.png', url: 'https://mootools.net/' },
+    'script.aculo.us': { icon: 'script.aculo.us.png', url: 'http://script.aculo.us/', priority: 1.9 },
+    RightJS: { icon: 'rightjs.png', url: 'https://github.com/rightjs/rightjs-core' },
+    Zepto: { title: 'Zepto.js', icon: 'zepto.png', url: 'https://zeptojs.com/', priority: 1.5 },
+    Raphael: { icon: 'raphael.png', url: 'https://dmitrybaranovskiy.github.io/raphael/' },
+    Modernizr: { icon: 'modernizr.png', url: 'https://modernizr.com/' },
+    'Head JS': { icon: 'headjs.gif', url: 'https://github.com/headjs/headjs' },
+    'Google Loader': { icon: 'google.png', url: 'https://developers.google.com/loader' },
+    SWFObject: { icon: 'SWFObject.png', url: 'https://github.com/swfobject/swfobject' },
     Prettify: {
         title: 'Google Code Prettify',
         icon: 'google.png',
-        url: 'http://code.google.com/p/google-code-prettify/',
-        priority: 3,
-    },
-    reCaptcha: {
-        icon: 'reCaptcha.png',
-        url: 'http://recaptcha.net/',
-        priority: 4,
-    },
-    Mollom: {
-        icon: 'mollom.png',
-        url: 'http://mollom.com',
-        priority: 4,
-    },
-    GoogleFontApi: {
-        title: 'Google Font API',
-        icon: 'google-font-api.gif',
-        url: 'http://code.google.com/apis/webfonts/',
-        priority: 4,
-    },
-    GoogleMapApi: {
-        title: 'Google Map API',
-        icon: 'gmap.png',
-        url: 'http://code.google.com/apis/maps/',
-        priority: 4,
-    },
-    SWFObject: {
-        icon: 'SWFObject.png',
-        url: 'http://code.google.com/p/swfobject/',
-        priority: 4,
-    },
-
-    OpenX: {
-        icon: 'OpenX.png',
-        url: 'http://openx.org',
-        priority: 5,
-    },
-    AdSense: {
-        icon: 'AdSense.gif',
-        url: 'https://www.google.com/adsense',
-        priority: 5,
-    },
-    Chitika: {
-        icon: 'chitika.png',
-        url: 'http://chitika.com/',
-        priority: 5,
-    },
-    BuySellAds: {
-        icon: 'buysellads.png',
-        url: 'http://buysellads.com/',
-        priority: 5,
-    },
-    HumansTxt: {
-        icon: 'humanstxt.png',
-        url: 'http://humanstxt.org/',
-        priority: 5,
-    },
-    Bootstrap: {
-        icon: 'bootstrap.png',
-        url: 'http://twitter.github.com/bootstrap/',
-        priority: 5,
-    },
-    Ning: {
-        icon: 'ning.png',
-        url: 'http://www.ning.com/',
-        priority: 1,
-    },
-    ektron: {
-        icon: 'ektron.png',
-        url: 'http://www.ektron.com/',
-        priority: 1,
-    },
-    'Mura CMS': {
-        title: 'Mura CMS',
-        icon: 'muracms.png',
-        url: 'http://www.getmura.com/',
-        priority: 1,
-    },
-    'Tiki Wiki CMS Groupware': {
-        title: 'Tiki Wiki CMS Groupware',
-        icon: 'TikiWikiCms.png',
-        url: 'http://info.tiki.org/',
-        priority: 1,
-    },
-    etracker: {
-        title: 'etracker',
-        icon: 'etracker.png',
-        url: 'http://etracker.com/',
-        priority: 1.2,
-    },
-    OpenTag: {
-        icon: 'OpenTag.png',
-        url: 'http://opentag.qubitproducts.com',
-        priority: 1.2,
-    },
-    http2: {
-        icon: 'spdy.png',
-        url: 'https://http2.github.io/',
-        priority: 5,
-    },
-    KISSmetrics: {
-        icon: 'kissmetrics.png',
-        url: 'http://kissmetrics.com/',
-        priority: 1,
-    },
-    LiveStreet: {
-        icon: 'LiveStreetCms.png',
-        url: 'http://livestreetcms.com/',
-        priority: 1,
-    },
-    PHP: {
-        icon: 'php.png',
-        url: 'http://php.net/',
-        priority: 1.5,
-    },
-    Apache: {
-        icon: 'apache.png',
-        url: 'http://httpd.apache.org/',
-        priority: 1.5,
-    },
-    nginx: {
-        icon: 'nginx.png',
-        url: 'http://nginx.org/en/',
-        priority: 1.5,
-    },
-    Varnish: {
-        icon: 'varnish.png',
-        url: 'https://www.varnish-cache.org/',
-        priority: 2.0,
-    },
-    IIS: {
-        icon: 'iis.png',
-        url: 'http://www.iis.net/',
-        priority: 1.5,
-    },
-    'ASP.NET': {
-        icon: 'asp.net.png',
-        url: 'http://www.asp.net/',
-        priority: 1.5,
-    },
-    Nette: {
-        icon: 'nette.png',
-        url: 'http://nette.org/',
-        priority: 1.5,
-    },
-    Dinkly: {
-        icon: 'dinkly.png',
-        url: 'https://github.com/lewsid/dinkly/',
-        priority: 1.5,
-    },
-
-    // default
-    '': {
-        icon: 'unknown.jpg',
-        url: 'http://google.com/search?q=%s',
+        url: 'https://github.com/googlearchive/code-prettify',
     },
 };
 
-export const KnownHeaders = {
-    'x-powered-by': {
-        'Express.js': /Express/,
-        PHP: /PHP\/?(.*)/,
-        Dinkly: /DINKLY\/?(.*)/,
-        'ASP.NET': /ASP\.NET/,
-        Nette: /Nette Framework/,
-    },
-    server: {
-        Apache: /Apache\/?(.*)/,
-        nginx: /nginx\/?(.*)/,
-        IIS: /Microsoft-IIS\/?(.*)/,
-    },
-    via: {
-        Varnish: /(.*) varnish/,
-    },
+const Ui: Record<string, ToolInfo> = {
+    'Angular Material': { icon: 'angular.png', url: 'https://material.angular.dev/', priority: 2.5 },
+    'Tailwind CSS': { brand: 'tailwindcss', url: 'https://tailwindcss.com/' },
+    Bootstrap: { icon: 'bootstrap.png', url: 'https://getbootstrap.com/' },
+    MUI: { title: 'Material UI', brand: 'mui', url: 'https://mui.com/' },
+    'Chakra UI': { brand: 'chakraui', url: 'https://chakra-ui.com/' },
+    Ionic: { brand: 'ionic', url: 'https://ionicframework.com/' },
+    'Font Awesome': { brand: 'fontawesome', url: 'https://fontawesome.com/' },
+    GoogleFontApi: { title: 'Google Fonts', icon: 'google-font-api.gif', url: 'https://fonts.google.com/' },
+    Typekit: { title: 'Adobe Fonts (Typekit)', icon: 'typekit.png', url: 'https://fonts.adobe.com/' },
+    Cufon: { icon: 'cufon.png', url: 'https://github.com/sorccu/cufon' },
+    sIFR: { icon: 'sifr.gif', url: 'https://github.com/Mark-H/sIFR' },
 };
+
+const BuildTools: Record<string, ToolInfo> = {
+    Vite: { title: 'Vite (dev server)', brand: 'vite', url: 'https://vite.dev/' },
+    webpack: { brand: 'webpack', url: 'https://webpack.js.org/' },
+    Turbopack: { url: 'https://nextjs.org/docs/app/api-reference/turbopack' },
+};
+
+const Analytics: Record<string, ToolInfo> = {
+    'Google Analytics': { icon: 'Google_Analytics.png', url: 'https://marketingplatform.google.com/about/analytics/' },
+    'Google Tag Manager': { brand: 'googletagmanager', url: 'https://tagmanager.google.com/' },
+    Segment: { url: 'https://segment.com/' },
+    Mixpanel: { brand: 'mixpanel', url: 'https://mixpanel.com/' },
+    Amplitude: { url: 'https://amplitude.com/' },
+    PostHog: { brand: 'posthog', url: 'https://posthog.com/' },
+    Heap: { url: 'https://www.heap.io/' },
+    Hotjar: { brand: 'hotjar', url: 'https://www.hotjar.com/' },
+    'Microsoft Clarity': { url: 'https://clarity.microsoft.com/' },
+    FullStory: { url: 'https://www.fullstory.com/' },
+    LogRocket: { url: 'https://logrocket.com/' },
+    Plausible: { brand: 'plausibleanalytics', url: 'https://plausible.io/' },
+    Fathom: { url: 'https://usefathom.com/' },
+    Piwik: { title: 'Matomo (Piwik)', brand: 'matomo', url: 'https://matomo.org/' },
+    'Vercel Analytics': { brand: 'vercel', url: 'https://vercel.com/analytics' },
+    'Cloudflare Web Analytics': { brand: 'cloudflare', url: 'https://www.cloudflare.com/web-analytics/' },
+    'Adobe Experience Platform Launch': {
+        url: 'https://experienceleague.adobe.com/docs/experience-platform/tags/home.html',
+    },
+    SiteCatalyst: {
+        title: 'Adobe Analytics',
+        icon: 'SiteCatalyst.png',
+        url: 'https://business.adobe.com/products/analytics/adobe-analytics.html',
+    },
+    Tealium: { url: 'https://tealium.com/' },
+    Optimizely: { url: 'https://www.optimizely.com/' },
+    VWO: { url: 'https://vwo.com/' },
+    Sentry: { brand: 'sentry', url: 'https://sentry.io/' },
+    'Datadog RUM': { brand: 'datadog', url: 'https://www.datadoghq.com/product/real-user-monitoring/' },
+    'New Relic': { icon: 'newrelic.png', url: 'https://newrelic.com/' },
+    Bugsnag: { url: 'https://www.bugsnag.com/' },
+    'Meta Pixel': { brand: 'meta', url: 'https://www.facebook.com/business/tools/meta-pixel' },
+    'TikTok Pixel': { brand: 'tiktok', url: 'https://ads.tiktok.com/help/article/tiktok-pixel' },
+    'LinkedIn Insight Tag': { url: 'https://business.linkedin.com/marketing-solutions/insight-tag' },
+    'X Pixel': {
+        brand: 'x',
+        url: 'https://business.x.com/en/help/campaign-measurement-and-analytics/conversion-tracking-for-websites',
+    },
+    'Pinterest Tag': {
+        brand: 'pinterest',
+        url: 'https://help.pinterest.com/business/article/track-conversions-with-pinterest-tag',
+    },
+    'HubSpot Tracking': { icon: 'hubspot.png', url: 'https://www.hubspot.com/' },
+    'Yandex Metrica': { url: 'https://metrica.yandex.com/' },
+    Woopra: { icon: 'woopra.png', url: 'https://www.woopra.com/' },
+    OpenWebAnalytics: { title: 'Open Web Analytics', icon: 'owa.png', url: 'https://www.openwebanalytics.com/' },
+    Coremetrics: { icon: 'coremetrics.png', url: 'https://www.acoustic.com/' },
+    Quantcast: { icon: 'Quantcast.png', url: 'https://www.quantcast.com/' },
+    Xiti: { title: 'Xiti Tracker', icon: 'xiti.png', url: 'https://www.atinternet.com/' },
+    Clicky: { icon: 'clicky.png', url: 'https://clicky.com/' },
+    KISSmetrics: { icon: 'kissmetrics-0.png', url: 'https://www.kissmetrics.io/', priority: 3.9 },
+    etracker: { icon: 'etracker.png', url: 'https://www.etracker.com/' },
+    OpenTag: { icon: 'OpenTag.png', url: 'https://www.qubit.com/' },
+};
+
+const Widgets: Record<string, ToolInfo> = {
+    Stripe: { brand: 'stripe', url: 'https://stripe.com/' },
+    PayPal: { brand: 'paypal', url: 'https://developer.paypal.com/' },
+    Firebase: { brand: 'firebase', url: 'https://firebase.google.com/' },
+    Algolia: { brand: 'algolia', url: 'https://www.algolia.com/' },
+    Intercom: { brand: 'intercom', url: 'https://www.intercom.com/' },
+    Zendesk: { brand: 'zendesk', url: 'https://www.zendesk.com/' },
+    Drift: { url: 'https://www.salesloft.com/platform/drift' },
+    Crisp: { url: 'https://crisp.chat/' },
+    'Tawk.to': { url: 'https://www.tawk.to/' },
+    OneTrust: { url: 'https://www.onetrust.com/' },
+    Cookiebot: { url: 'https://www.cookiebot.com/' },
+    reCaptcha: { title: 'reCAPTCHA', icon: 'reCaptcha.png', url: 'https://developers.google.com/recaptcha' },
+    hCaptcha: { url: 'https://www.hcaptcha.com/' },
+    'Cloudflare Turnstile': { brand: 'cloudflare', url: 'https://www.cloudflare.com/products/turnstile/' },
+    GoogleMapApi: { title: 'Google Maps API', icon: 'gmap.png', url: 'https://developers.google.com/maps' },
+    GAPI: {
+        title: 'Google API Client',
+        icon: 'google.png',
+        url: 'https://github.com/google/google-api-javascript-client',
+    },
+    Facebook: { title: 'Facebook SDK', icon: 'facebook.png', url: 'https://developers.facebook.com/' },
+    Twitter: { title: 'X (Twitter) widgets', icon: 'twitter.png', url: 'https://developer.x.com/' },
+    Disqus: { icon: 'Disqus.png', url: 'https://disqus.com/' },
+    AddThis: { icon: 'addthis.png', url: 'https://www.addthis.com/' },
+    GetSatisfaction: { title: 'Get Satisfaction', icon: 'GetSatisfaction.gif', url: 'https://getsatisfaction.com/' },
+    Wibiya: { icon: 'Wibiya.png', url: 'http://wibiya.com/' },
+    Mollom: { icon: 'mollom.png', url: 'https://www.drupal.org/project/mollom' },
+    Buzz: { title: 'Google Buzz Button', icon: 'buzz.png', url: 'https://en.wikipedia.org/wiki/Google_Buzz' },
+    Plus1: { title: 'Google +1 Button', icon: 'plus1.png', url: 'https://en.wikipedia.org/wiki/Google%2B' },
+    HumansTxt: { title: 'humans.txt', icon: 'humanstxt.png', url: 'https://humanstxt.org/' },
+};
+
+const Advertising: Record<string, ToolInfo> = {
+    AdSense: { icon: 'AdSense.gif', url: 'https://adsense.google.com/' },
+    'Google Publisher Tag': { icon: 'google.png', url: 'https://developers.google.com/publisher-tag' },
+    OpenX: { icon: 'OpenX.png', url: 'https://www.openx.com/' },
+    Chitika: { icon: 'chitika.png', url: 'https://chitika.com/' },
+    BuySellAds: { icon: 'buysellads.png', url: 'https://www.buysellads.com/' },
+};
+
+const ServerSide: Record<string, ToolInfo> = {
+    'Express.js': { icon: 'expressjs.png', url: 'https://expressjs.com/', priority: 3 },
+    PHP: { icon: 'php.png', url: 'https://www.php.net/' },
+    'ASP.NET': { icon: 'asp.net.png', url: 'https://dotnet.microsoft.com/apps/aspnet' },
+    Kestrel: { brand: 'dotnet', url: 'https://learn.microsoft.com/aspnet/core/fundamentals/servers/kestrel' },
+    Nette: { title: 'Nette Framework', icon: 'nette.png', url: 'https://nette.org/' },
+    Dinkly: { icon: 'dinkly.png', url: 'https://github.com/lewsid/dinkly/' },
+    'Craft CMS': { brand: 'craftcms', url: 'https://craftcms.com/' },
+    Deno: { brand: 'deno', url: 'https://deno.com/' },
+    Gunicorn: { brand: 'gunicorn', url: 'https://gunicorn.org/' },
+    Uvicorn: { url: 'https://www.uvicorn.org/' },
+    Puma: { url: 'https://puma.io/' },
+    'Phusion Passenger': { url: 'https://www.phusionpassenger.com/' },
+    Jetty: { brand: 'eclipsejetty', url: 'https://jetty.org/' },
+    Cowboy: { url: 'https://ninenines.eu/' },
+    Apache: { title: 'Apache HTTP Server', icon: 'apache.png', url: 'https://httpd.apache.org/' },
+    nginx: { icon: 'nginx.png', url: 'https://nginx.org/' },
+    OpenResty: { url: 'https://openresty.org/' },
+    IIS: { icon: 'iis.png', url: 'https://www.iis.net/' },
+    LiteSpeed: { url: 'https://www.litespeedtech.com/' },
+    Caddy: { brand: 'caddy', url: 'https://caddyserver.com/' },
+    Envoy: { brand: 'envoyproxy', url: 'https://www.envoyproxy.io/' },
+};
+
+const Hosting: Record<string, ToolInfo> = {
+    Cloudflare: { brand: 'cloudflare', url: 'https://www.cloudflare.com/' },
+    Vercel: { brand: 'vercel', url: 'https://vercel.com/' },
+    Netlify: { brand: 'netlify', url: 'https://www.netlify.com/' },
+    'Google Cloud': { brand: 'googlecloud', url: 'https://cloud.google.com/' },
+    'Amazon CloudFront': { url: 'https://aws.amazon.com/cloudfront/' },
+    'Amazon S3': { url: 'https://aws.amazon.com/s3/' },
+    'Azure Front Door': { url: 'https://azure.microsoft.com/products/frontdoor' },
+    Fastly: { brand: 'fastly', url: 'https://www.fastly.com/' },
+    Akamai: { brand: 'akamai', url: 'https://www.akamai.com/' },
+    'GitHub Pages': { brand: 'github', url: 'https://pages.github.com/' },
+    Heroku: { url: 'https://www.heroku.com/' },
+    'Fly.io': { brand: 'flydotio', url: 'https://fly.io/' },
+    Render: { brand: 'render', url: 'https://render.com/' },
+    'WP Engine': { brand: 'wpengine', url: 'https://wpengine.com/' },
+    Varnish: { icon: 'varnish.png', url: 'https://varnish-cache.org/' },
+};
+
+const Network: Record<string, ToolInfo> = {
+    'HTTP/2': { icon: 'spdy.png', url: 'https://en.wikipedia.org/wiki/HTTP/2' },
+    'HTTP/3': { icon: 'spdy.png', url: 'https://en.wikipedia.org/wiki/HTTP/3' },
+};
+
+const byCategory: [Category, Record<string, ToolInfo>][] = [
+    ['Frameworks', Frameworks],
+    ['Meta-frameworks & SSR', MetaFrameworks],
+    ['CMS & platforms', Platforms],
+    ['JavaScript libraries', Libraries],
+    ['UI & styling', Ui],
+    ['Build tools', BuildTools],
+    ['Analytics & monitoring', Analytics],
+    ['Widgets & services', Widgets],
+    ['Advertising', Advertising],
+    ['Server-side', ServerSide],
+    ['Hosting & CDN', Hosting],
+    ['Network', Network],
+];
+
+export const ToolMetadata: Record<string, Tool> = {};
+for (const [category, tools] of byCategory) {
+    const defaultPriority = Categories.find((c) => c.name === category)!.priority;
+    for (const [id, info] of Object.entries(tools)) {
+        ToolMetadata[id] = {
+            ...info,
+            id,
+            title: info.title ?? id,
+            icon: info.icon ?? (info.brand ? `brands/${info.brand}.svg` : undefined),
+            category,
+            priority: info.priority ?? defaultPriority,
+        };
+    }
+}
+
+/** Metadata for a detected id, including ids we have no metadata for. */
+export function getTool(id: string): Tool {
+    return (
+        ToolMetadata[id] ?? {
+            id,
+            title: id,
+            url: `https://www.google.com/search?q=${encodeURIComponent(id)}`,
+            category: 'Widgets & services',
+            priority: 10,
+        }
+    );
+}

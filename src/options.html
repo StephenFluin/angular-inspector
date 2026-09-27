@@ -1,39 +1,51 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8" />
         <title>Angular Inspector Options</title>
         <style>
-            body {
-                padding: 16px;
-                margin: 0px;
+            :root {
+                color-scheme: light dark;
             }
-            #page {
+            body {
+                margin: 0;
+                padding: 24px;
+                font:
+                    14px/1.5 system-ui,
+                    -apple-system,
+                    'Segoe UI',
+                    Roboto,
+                    sans-serif;
+            }
+            main {
                 max-width: 600px;
+            }
+            label {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                font-weight: 600;
+            }
+            #status {
+                min-height: 1.5em;
+                color: #2e7d32;
             }
         </style>
     </head>
     <body>
-        <h1>Angular Inspector Options</h1>
-
-        <div id="page">
+        <main>
+            <h1>Angular Inspector Options</h1>
             <label>
                 <input type="checkbox" id="optin" />
-                Opt-In to Anonymous Angular Usage reporting
+                Opt in to anonymous Angular usage reporting
             </label>
             <p>
-                By checking this box, whenever you find a domain name running Angular, it will be reported to a public
-                Firebase instance.
+                When enabled, the domain name of each site you visit that runs Angular or AngularJS, the version, and
+                the date are sent once per domain to a public Firebase database.
             </p>
-
-            <p>
-                No information about you will be collected or stored, but the domain name and date of Angular sites you
-                visit will be anonymously be combined with information coming from other users.
-            </p>
-
-            <div id="status"></div>
-            <button id="save">Save</button>
-        </div>
-
+            <p>No information about you, your browser, or your browsing is collected or stored.</p>
+            <p id="status" role="status"></p>
+        </main>
         <script src="dist/options.js"></script>
     </body>
 </html>

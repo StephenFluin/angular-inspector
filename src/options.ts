@@ -1,36 +1,11 @@
-// Saves options to chrome.storage
-function save_options() {
-    var optin = document.getElementById('optin')['checked'];
-    chrome.storage.sync.set(
-        {
-            optin: optin,
-        },
-        function () {
-            // Update status to let user know options were saved.
+const optin = document.getElementById('optin') as HTMLInputElement;
+const statusEl = document.getElementById('status')!;
 
-            toast('Options saved, opt-in set to ' + (optin ? 'on' : 'off') + '.');
-        }
-    );
-}
+chrome.storage.sync.get({ optin: false }).then((items) => {
+    optin.checked = Boolean(items.optin);
+});
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function restore_options() {
-    // Loading options...
-    chrome.storage.sync.get(
-        {
-            optin: false,
-        },
-        function (items) {
-            // processing loaded options from items
-            document.getElementById('optin')['checked'] = items.optin;
-        }
-    );
-}
-
-function toast(msg, time = 750) {
-    let status = document.getElementById('status');
-    status.textContent = msg;
-}
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click', save_options);
+optin.addEventListener('change', async () => {
+    await chrome.storage.sync.set({ optin: optin.checked });
+    statusEl.textContent = `Saved. Anonymous reporting is ${optin.checked ? 'on' : 'off'}.`;
+});
