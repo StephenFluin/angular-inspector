@@ -9,3 +9,10 @@ updates:
       minor-and-patch:
         applies-to: version-updates
         update-types: [minor, patch]
+      security:
+        applies-to: security-updates
+        patterns: ['*']
+    ignore:
+      # Stays on the major version of the Node release we run.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
