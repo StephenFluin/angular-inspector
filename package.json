@@ -28,7 +28,7 @@
         "@types/node": "^26.6.6",
         "esbuild": "^0.28.2",
         "prettier": "^3.9.10",
-        "simple-icons": "^16.36.0",
+        "simple-icons": "^16.37.0",
         "typescript": "^7.0.2"
     }
 }
